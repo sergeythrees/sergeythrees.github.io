@@ -1,37 +1,36 @@
 import { Link } from 'react-router-dom';
 import { App, Button, Card, Col, Row } from 'antd';
 import { CopyOutlined, GithubOutlined, MailOutlined } from '@ant-design/icons';
-import { profile } from '../data/site';
+import { useLocale, useT } from '../i18n/LocaleProvider';
 import PageHeader from '../components/PageHeader';
 
-const githubHref =
-  profile.links.find((link) => link.label.toLowerCase() === 'github')?.href ??
-  'https://github.com/sergeythrees';
-
 export default function ContactsPage() {
+  const t = useT();
+  const { content } = useLocale();
+  const { site } = content;
   // App.useApp() вместо статического message — так работают токены темы.
   const { message } = App.useApp();
 
+  const githubHref =
+    site.links.find((link) => link.label.toLowerCase() === 'github')?.href ??
+    'https://github.com/sergeythrees';
+
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText(profile.email);
-      message.success('Почта скопирована');
+      await navigator.clipboard.writeText(site.email);
+      message.success(t.common.copyOk);
     } catch {
-      message.error('Не удалось скопировать — скопируйте адрес вручную');
+      message.error(t.common.copyFail);
     }
   };
 
   return (
     <>
-      <PageHeader
-        eyebrow="Связь"
-        title="Контакты"
-        subtitle="Открыт к задачам, вопросам по проектам и обсуждению сотрудничества."
-      />
+      <PageHeader eyebrow={t.contacts.eyebrow} title={t.contacts.title} subtitle={t.contacts.subtitle} />
 
       <section className="section">
         <Row gutter={[16, 16]}>
-          {profile.links.map((link) => (
+          {site.links.map((link) => (
             <Col key={link.href} xs={24} md={12}>
               <Card variant="borderless" className="contact-card">
                 <div className="contact-card__label">{link.label}</div>
@@ -40,7 +39,7 @@ export default function ContactsPage() {
                   {link.href.startsWith('mailto:') ? (
                     // mailto не открываем в новой вкладке: часть браузеров показывает пустую.
                     <Button type="primary" href={link.href} icon={<MailOutlined />}>
-                      Написать
+                      {t.common.write}
                     </Button>
                   ) : (
                     <Button
@@ -50,7 +49,7 @@ export default function ContactsPage() {
                       rel="noreferrer noopener"
                       icon={<GithubOutlined />}
                     >
-                      Открыть
+                      {t.common.open}
                     </Button>
                   )}
                 </div>
@@ -60,10 +59,8 @@ export default function ContactsPage() {
 
           <Col xs={24} md={12}>
             <Card variant="borderless" className="contact-card">
-              <div className="contact-card__label">Быстро</div>
-              <div className="contact-card__value">
-                Скопировать адрес, не переключаясь на почтовый клиент
-              </div>
+              <div className="contact-card__label">{t.contacts.quickLabel}</div>
+              <div className="contact-card__value">{t.contacts.quickText}</div>
               <div className="contact-card__actions">
                 <Button
                   icon={<CopyOutlined />}
@@ -71,7 +68,7 @@ export default function ContactsPage() {
                     void copyEmail();
                   }}
                 >
-                  Скопировать почту
+                  {t.common.copyEmail}
                 </Button>
               </div>
             </Card>
@@ -81,14 +78,14 @@ export default function ContactsPage() {
 
       <section className="section">
         <p className="section__paragraph">
-          Больше кода и проектов — на{' '}
+          {t.contacts.more}{' '}
           <a href={githubHref} target="_blank" rel="noreferrer noopener">
-            GitHub
+            {t.common.github}
           </a>
-          . Локальные проекты запускаются по инструкции со страницы проекта.
+          . {t.contacts.projectsHint}
         </p>
         <Link to="/projects" className="section__link">
-          Смотреть проекты
+          {t.contacts.seeProjects}
         </Link>
       </section>
     </>

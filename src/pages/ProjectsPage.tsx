@@ -1,15 +1,19 @@
 import { Col, Row } from 'antd';
-import { projects } from '../data/projects';
+import { useLocale, useT } from '../i18n/LocaleProvider';
 import PageHeader from '../components/PageHeader';
 import ProjectCard from '../components/ProjectCard';
 
 export default function ProjectsPage() {
+  const t = useT();
+  const { content } = useLocale();
+  const { projects } = content;
+
   return (
     <>
       <PageHeader
-        eyebrow="Портфолио"
-        title="Проекты"
-        subtitle={`Всего проектов: ${projects.length}. React-библиотеки, Telegram Mini Apps, ИИ-боты и браузерные агенты — с исходным кодом, тестами и понятным запуском.`}
+        eyebrow={t.projects.eyebrow}
+        title={t.projects.title}
+        subtitle={t.projects.subtitle}
       />
 
       <Row gutter={[20, 20]}>

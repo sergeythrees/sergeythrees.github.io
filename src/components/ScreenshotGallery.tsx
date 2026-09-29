@@ -1,5 +1,6 @@
 import { Card, Col, Image, Row } from 'antd';
-import type { Project } from '../data/projects';
+import type { Project } from '../data/types';
+import { useT } from '../i18n/LocaleProvider';
 
 interface ScreenshotGalleryProps {
   screenshots: Project['screenshots'];
@@ -7,7 +8,7 @@ interface ScreenshotGalleryProps {
 }
 
 /** Путь из public/ с учётом base: './'. */
-function assetUrl(src: string): string {
+export function assetUrl(src: string): string {
   if (/^(https?:)?\/\//.test(src) || src.startsWith('data:')) {
     return src;
   }
@@ -15,12 +16,14 @@ function assetUrl(src: string): string {
 }
 
 export default function ScreenshotGallery({ screenshots, note }: ScreenshotGalleryProps) {
+  const t = useT();
+
   return (
     <section className="section">
-      <h2 className="section__title">Скриншоты</h2>
+      <h2 className="section__title">{t.common.screenshots}</h2>
 
       {screenshots.length === 0 ? (
-        <div className="gallery-empty">{note ?? 'Скриншоты появятся позже.'}</div>
+        <div className="gallery-empty">{note ?? t.project.galleryEmpty}</div>
       ) : (
         <Image.PreviewGroup>
           <Row gutter={[16, 16]}>

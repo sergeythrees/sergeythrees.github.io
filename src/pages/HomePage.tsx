@@ -1,42 +1,45 @@
 import { Link } from 'react-router-dom';
 import { Button, Col, Row } from 'antd';
 import { AppstoreOutlined, GithubOutlined, MailOutlined } from '@ant-design/icons';
-import { profile } from '../data/site';
-import { projects } from '../data/projects';
+import { useLocale, useT } from '../i18n/LocaleProvider';
 import ProjectCard from '../components/ProjectCard';
 import StackTags from '../components/StackTags';
 
-const githubHref =
-  profile.links.find((link) => link.label.toLowerCase() === 'github')?.href ??
-  'https://github.com/sergeythrees';
-
 export default function HomePage() {
+  const t = useT();
+  const { content } = useLocale();
+  const { site, projects } = content;
+
+  const githubHref =
+    site.links.find((link) => link.label.toLowerCase() === 'github')?.href ??
+    'https://github.com/sergeythrees';
+
   return (
     <>
       <section className="hero">
-        <span className="hero__badge">Портфолио · GitHub</span>
-        <h1 className="hero__name">{profile.name}</h1>
-        <div className="hero__role">{profile.role}</div>
-        <p className="hero__tagline">{profile.tagline}</p>
-        <p className="hero__intro">{profile.intro}</p>
+        <span className="hero__badge">{t.home.eyebrow}</span>
+        <h1 className="hero__name">{site.name}</h1>
+        <div className="hero__role">{site.role}</div>
+        <p className="hero__tagline">{site.headline}</p>
+        <p className="hero__intro">{site.intro}</p>
 
         <div className="hero__actions">
           <Link to="/projects">
             <Button type="primary" size="large" icon={<AppstoreOutlined />}>
-              Смотреть проекты
+              {t.home.ctaProjects}
             </Button>
           </Link>
           <Link to="/about">
-            <Button size="large">Обо мне</Button>
+            <Button size="large">{t.home.ctaAbout}</Button>
           </Link>
         </div>
       </section>
 
       <section className="section">
         <div className="section__head">
-          <h2 className="section__title">Проекты</h2>
+          <h2 className="section__title">{t.home.projectsTitle}</h2>
           <Link to="/projects" className="section__link">
-            Все проекты
+            {t.home.projectsAll}
           </Link>
         </div>
 
@@ -50,10 +53,10 @@ export default function HomePage() {
       </section>
 
       <section className="section">
-        <h2 className="section__title">Стек</h2>
+        <h2 className="section__title">{t.home.stackTitle}</h2>
 
         <Row gutter={[24, 24]}>
-          {profile.skills.map((skill) => (
+          {site.skills.map((skill) => (
             <Col key={skill.group} xs={24} sm={12} xl={6}>
               <div className="skill-group">
                 <div className="skill-group__title">{skill.group}</div>
@@ -66,14 +69,12 @@ export default function HomePage() {
 
       <section className="cta">
         <div className="cta__text">
-          <div className="cta__title">Есть задача или вопрос?</div>
-          <div className="cta__subtitle">
-            Напишите на {profile.email} — отвечу и расскажу, чем могу помочь.
-          </div>
+          <div className="cta__title">{t.home.ctaTitle}</div>
+          <div className="cta__subtitle">{t.home.ctaText}</div>
         </div>
         <div className="cta__actions">
-          <Button type="primary" size="large" href={`mailto:${profile.email}`} icon={<MailOutlined />}>
-            Написать
+          <Button type="primary" size="large" href={`mailto:${site.email}`} icon={<MailOutlined />}>
+            {t.common.write}
           </Button>
           <Button
             size="large"
@@ -82,7 +83,7 @@ export default function HomePage() {
             rel="noreferrer noopener"
             icon={<GithubOutlined />}
           >
-            GitHub
+            {t.common.github}
           </Button>
         </div>
       </section>

@@ -1,39 +1,29 @@
 import { Col, Row } from 'antd';
-import { profile } from '../data/site';
+import { useLocale, useT } from '../i18n/LocaleProvider';
 import PageHeader from '../components/PageHeader';
 import StackTags from '../components/StackTags';
 
-/** Принципы работы — мнение автора сайта, без выдуманных фактов и дат. */
-const PRINCIPLES = [
-  'Работающий код вместо демо: каждый проект можно запустить и проверить.',
-  'Тесты как часть проекта, а не отдельная задача «на потом».',
-  'Понятный запуск в одну команду и честная инструкция, если так не получилось.',
-  'Минимум зависимостей и инфраструктуры — только то, что реально нужно задаче.',
-];
-
 export default function AboutPage() {
+  const t = useT();
+  const { content } = useLocale();
+  const { site } = content;
+
   return (
     <>
-      <PageHeader eyebrow="Обо мне" title="Обо мне" subtitle={profile.role} />
+      <PageHeader eyebrow={t.about.eyebrow} title={t.about.title} subtitle={site.role} />
 
       <section className="section">
-        <p className="section__paragraph">{profile.intro}</p>
-        <p className="section__paragraph">
-          Мне интересны задачи, где нужно собрать продукт целиком: интерфейс, серверную часть и
-          автоматизацию вокруг. Обычно начинаю с того, что формулирую проверяемый результат, а
-          затем собираю минимальную работающую версию и наращиваю её.
-        </p>
-        <p className="section__paragraph">
-          Отдельное внимание — запуску и поддержке: если проект нельзя поднять по инструкции из
-          README, он считается незаконченным. Поэтому в каждом проекте есть команды запуска,
-          тесты и описание того, что уже работает, а что ещё в процессе.
-        </p>
+        {site.about.map((paragraph) => (
+          <p key={paragraph.slice(0, 32)} className="section__paragraph">
+            {paragraph}
+          </p>
+        ))}
       </section>
 
       <section className="section">
-        <h2 className="section__title">Стек</h2>
+        <h2 className="section__title">{t.about.skillsTitle}</h2>
         <Row gutter={[24, 24]}>
-          {profile.skills.map((skill) => (
+          {site.skills.map((skill) => (
             <Col key={skill.group} xs={24} sm={12}>
               <div className="skill-group">
                 <div className="skill-group__title">{skill.group}</div>
@@ -45,9 +35,9 @@ export default function AboutPage() {
       </section>
 
       <section className="section">
-        <h2 className="section__title">Принципы</h2>
+        <h2 className="section__title">{t.about.principlesTitle}</h2>
         <ul className="feature-list">
-          {PRINCIPLES.map((principle) => (
+          {site.principles.map((principle) => (
             <li key={principle} className="feature-list__item">
               {principle}
             </li>
@@ -56,9 +46,9 @@ export default function AboutPage() {
       </section>
 
       <section className="section">
-        <h2 className="section__title">Контакты</h2>
+        <h2 className="section__title">{t.nav.contacts}</h2>
         <p className="section__paragraph">
-          Почта: {profile.email}. {profile.location}.
+          {t.common.email}: {site.email} · {site.location}
         </p>
       </section>
     </>

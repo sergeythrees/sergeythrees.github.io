@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
+import { useT } from '../i18n/LocaleProvider';
 
 export default function NotFoundPage() {
+  const t = useT();
+
   return (
     <div className="empty-state">
       <div className="empty-state__code">404</div>
-      <h1 className="empty-state__title">Страница не найдена</h1>
-      <p className="empty-state__text">
-        Такого адреса нет. Проверьте ссылку или вернитесь на главную.
-      </p>
+      <h1 className="empty-state__title">{t.notFound.title}</h1>
+      <p className="empty-state__text">{t.notFound.text}</p>
       <Link to="/">
         <Button type="primary" icon={<HomeOutlined />}>
-          На главную
+          {t.notFound.cta}
         </Button>
       </Link>
     </div>

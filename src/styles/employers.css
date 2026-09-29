@@ -1,0 +1,498 @@
+/* ==========================================================================
+   Раздел «Работодателям»: карточки-ссылки, преимущества, страница резюме.
+   Цвета берём только из переменных global.css — тема переключается сама.
+   ========================================================================== */
+
+/* --- Ссылки-карточки «Резюме» и «Тестовые задания» --- */
+
+.employers-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: 22px 24px 20px;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  transition:
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.employers-card:hover {
+  color: inherit;
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.employers-card__icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: var(--accent);
+  font-size: 18px;
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-tint-border);
+  border-radius: 10px;
+}
+
+.employers-card__title {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.employers-card:hover .employers-card__title {
+  color: var(--accent);
+}
+
+.employers-card__text {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.employers-card__more {
+  margin-top: auto;
+  padding-top: 8px;
+  color: var(--accent);
+  font-size: 13px;
+}
+
+/* --- Блок «Почему стоит посмотреть» --- */
+
+.employer-highlight {
+  height: 100%;
+  padding: 18px 20px;
+  background: var(--code-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+}
+
+.employer-highlight__title {
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.employer-highlight__text {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+/* --- Резюме: шапка --- */
+
+.resume-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding: 26px 28px;
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+}
+
+.resume-head__main {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+.resume-head__name {
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.resume-head__title {
+  margin-top: 6px;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.resume-head__summary {
+  max-width: 640px;
+  margin-top: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.resume-head__side {
+  flex: 0 1 280px;
+  min-width: 0;
+}
+
+.resume-head__contacts-title {
+  margin-bottom: 10px;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resume-contacts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 10px;
+}
+
+.resume-contact:last-child {
+  margin-bottom: 0;
+}
+
+.resume-contact__label {
+  color: var(--text-dim);
+  font-size: 11.5px;
+}
+
+.resume-contact__value {
+  color: var(--text);
+  font-size: 13.5px;
+  word-break: break-word;
+}
+
+a.resume-contact__value:hover {
+  color: var(--accent);
+}
+
+.resume-head__actions {
+  margin-top: 16px;
+}
+
+/* --- Резюме: боковые панели --- */
+
+.resume-panel {
+  margin-bottom: 20px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+}
+
+.resume-panel:last-child {
+  margin-bottom: 0;
+}
+
+.resume-panel .section__title {
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+
+.resume-skill-group {
+  margin-bottom: 14px;
+}
+
+.resume-skill-group:last-child {
+  margin-bottom: 0;
+}
+
+.resume-skill-group__title {
+  margin-bottom: 8px;
+  color: var(--text-bright);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* --- Резюме: таймлайн опыта --- */
+
+.resume-timeline {
+  position: relative;
+  margin: 0;
+  padding: 2px 0 2px 24px;
+}
+
+.resume-timeline::before {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 5px;
+  width: 1px;
+  background: var(--border);
+  content: '';
+}
+
+.resume-timeline__item {
+  position: relative;
+  padding-bottom: 26px;
+}
+
+.resume-timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+/* Точка-маркер садится ровно на вертикальную линию. */
+.resume-timeline__item::before {
+  position: absolute;
+  top: 6px;
+  left: -23px;
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--bg-app);
+  content: '';
+}
+
+.resume-timeline__position {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.resume-timeline__company {
+  margin-top: 2px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.resume-timeline__period {
+  margin-top: 6px;
+  color: var(--text-dim);
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 12.5px;
+}
+
+.resume-timeline__meta {
+  margin-top: 2px;
+  color: var(--text-dim);
+  font-size: 12.5px;
+}
+
+.resume-timeline__description {
+  max-width: 760px;
+  margin-top: 10px;
+  color: var(--text-bright);
+  line-height: 1.6;
+}
+
+.resume-timeline__subtitle {
+  margin-top: 12px;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resume-achievements {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-achievements__item {
+  position: relative;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  color: var(--text-bright);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.resume-achievements__item:last-child {
+  margin-bottom: 0;
+}
+
+.resume-achievements__item::before {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  color: var(--accent);
+  content: '▸';
+}
+
+/* --- Резюме: проекты и образование --- */
+
+.resume-projects {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-projects__item {
+  margin-bottom: 16px;
+}
+
+.resume-projects__item:last-child {
+  margin-bottom: 0;
+}
+
+.resume-projects__name {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.resume-projects__text {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.resume-edu {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.resume-edu:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.resume-edu__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.resume-edu__degree {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.resume-edu__period {
+  color: var(--text-dim);
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 12.5px;
+}
+
+.resume-edu__institution {
+  margin-top: 4px;
+  color: var(--text-bright);
+  font-size: 14px;
+}
+
+.resume-edu__grade {
+  margin-top: 4px;
+  color: var(--text-dim);
+  font-size: 12.5px;
+}
+
+/* --- Резюме: языки и условия работы --- */
+
+.resume-langs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-langs__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.resume-langs__item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.resume-langs__name {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.resume-langs__level {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.resume-prefs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-prefs__item {
+  margin-bottom: 10px;
+}
+
+.resume-prefs__item:last-child {
+  margin-bottom: 0;
+}
+
+.resume-prefs__label {
+  display: block;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.resume-prefs__value {
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Адаптив: до 900px колонки складываются в одну
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .employers-card {
+    padding: 18px 18px 16px;
+  }
+
+  .resume-head {
+    padding: 20px 18px;
+  }
+
+  .resume-head__name {
+    font-size: 23px;
+  }
+
+  .resume-head__side {
+    flex-basis: 100%;
+  }
+}
+
+/* ==========================================================================
+   Печать: рамки светлее, блоки не рвутся между страницами
+   ========================================================================== */
+
+@media print {
+  .resume-sheet {
+    --border: #d9d9de;
+    --border-soft: #e6e6ea;
+    --divider: #d9d9de;
+    --surface: #ffffff;
+    --code-bg: #ffffff;
+  }
+
+  .resume-head,
+  .resume-panel,
+  .resume-timeline__item {
+    break-inside: avoid;
+  }
+
+  .resume-head__name {
+    font-size: 24px;
+  }
+}

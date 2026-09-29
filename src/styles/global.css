@@ -16,22 +16,25 @@ body,
 
 body {
   margin: 0;
-  background: #0b0b0d;
-  color: #e9e9ec;
+  background: var(--bg-app);
+  color: var(--text);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
   text-rendering: optimizeLegibility;
 }
 
 a {
-  color: #4d8dfd;
+  color: var(--accent);
   text-decoration: none;
 }
 
 a:hover {
-  color: #6ea2ff;
+  color: var(--accent-hover);
 }
 
 h1,
@@ -44,7 +47,7 @@ p {
 /* Тонкие тёмные скроллбары */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2a2a32 transparent;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -57,20 +60,116 @@ p {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a32;
+  background: var(--scrollbar-thumb);
   background-clip: content-box;
   border: 2px solid transparent;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a44;
+  background: var(--scrollbar-thumb-hover);
   background-clip: content-box;
 }
 
 ::selection {
-  background: rgba(77, 141, 253, 0.35);
+  background: var(--selection-bg);
 }
+
+/* ==========================================================================
+   Тема: цветовые переменные
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Фоны и поверхности */
+  --bg-app: #0b0b0d;
+  --bg-sider: #111114;
+  --bg-header: #0d0d10;
+  --surface: #151518;
+  --surface-2: #17171a;
+  --surface-3: #1b1b20;
+  --surface-hover: #1e1e25;
+  --bg-header-translucent: rgba(11, 11, 13, 0.85);
+
+  /* Границы и разделители */
+  --border: #26262c;
+  --border-soft: #1e1e23;
+  --border-strong: #3a3a44;
+  --divider: #22222a;
+  --code-bg: #101014;
+
+  /* Текст */
+  --text: #e9e9ec;
+  --text-strong: #ffffff;
+  --text-bright: #c9c9d1;
+  --text-nav: #b9b9c2;
+  --text-muted: #90909a;
+  --text-dim: #6b6b74;
+  --text-faint: #5f5f68;
+
+  /* Акцент и статусы */
+  --accent: #4d8dfd;
+  --accent-hover: #6ea2ff;
+  --accent-soft: #1d2b4a;
+  --accent-text: #cfdcff;
+  --accent-tint: rgba(77, 141, 253, 0.12);
+  --accent-tint-border: rgba(77, 141, 253, 0.28);
+  --selection-bg: rgba(77, 141, 253, 0.35);
+  --success: #3ecf8e;
+  --warning: #e2a03f;
+
+  /* Тени и скроллбары */
+  --scrollbar-thumb: #2a2a32;
+  --scrollbar-thumb-hover: #3a3a44;
+}
+
+/* Светлая тема: атрибут data-theme ставится скриптом на <html>. */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  /* Фоны и поверхности */
+  --bg-app: #f4f4f6;
+  --bg-sider: #fbfbfc;
+  --bg-header: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #ffffff;
+  --surface-3: #ffffff;
+  --surface-hover: #eef1f6;
+  --bg-header-translucent: rgba(255, 255, 255, 0.85);
+
+  /* Границы и разделители */
+  --border: #e2e2e7;
+  --border-soft: #ececf0;
+  --border-strong: #c9c9d1;
+  --divider: #e6e6ea;
+  --code-bg: #f2f3f5;
+
+  /* Текст */
+  --text: #17171a;
+  --text-strong: #000000;
+  --text-bright: #45454f;
+  --text-nav: #45454f;
+  --text-muted: #5c5c66;
+  --text-dim: #787883;
+  --text-faint: #8a8a93;
+
+  /* Акцент и статусы */
+  --accent: #2f6fe4;
+  --accent-hover: #1a4fbb;
+  --accent-soft: #e8effc;
+  --accent-text: #1a3a6b;
+  --accent-tint: rgba(47, 111, 228, 0.1);
+  --accent-tint-border: rgba(47, 111, 228, 0.28);
+  --selection-bg: rgba(47, 111, 228, 0.22);
+  --success: #1f9d63;
+  --warning: #b8791f;
+
+  /* Тени и скроллбары */
+  --scrollbar-thumb: #c9c9d1;
+  --scrollbar-thumb-hover: #a9a9b4;
+}
+
 
 /* ==========================================================================
    Каркас: сайдбар, шапка, контент
@@ -78,7 +177,7 @@ p {
 
 .app-layout {
   min-height: 100vh;
-  background: #0b0b0d;
+  background: var(--bg-app);
 }
 
 .app-sider {
@@ -86,8 +185,8 @@ p {
   top: 0;
   height: 100vh;
   overflow: hidden;
-  background: #111114;
-  border-right: 1px solid #242429;
+  background: var(--bg-sider);
+  border-right: 1px solid var(--border);
 }
 
 .app-sider .ant-layout-sider-children {
@@ -106,10 +205,10 @@ p {
   height: 56px;
   padding: 0 12px 0 8px;
   line-height: normal;
-  background: rgba(11, 11, 13, 0.85);
+  background: var(--bg-header-translucent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid #1e1e23;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .app-header__left,
@@ -120,17 +219,17 @@ p {
 }
 
 .app-header__title {
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 13px;
   letter-spacing: 0.01em;
 }
 
 .app-header__toggle.ant-btn {
-  color: #b9b9c2;
+  color: var(--text-nav);
 }
 
 .app-content {
-  background: #0b0b0d;
+  background: var(--bg-app);
 }
 
 .page-container {
@@ -146,7 +245,7 @@ p {
 }
 
 .app-drawer .ant-drawer-body {
-  background: #111114;
+  background: var(--bg-sider);
 }
 
 /* ==========================================================================
@@ -159,7 +258,7 @@ p {
   height: 100%;
   overflow-y: auto;
   padding-bottom: 16px;
-  background: #111114;
+  background: var(--bg-sider);
 }
 
 .sidenav__brand {
@@ -175,10 +274,10 @@ p {
   place-items: center;
   width: 32px;
   height: 32px;
-  border: 1px solid #3a3a44;
+  border: 1px solid var(--border-strong);
   border-radius: 9px;
-  background: linear-gradient(140deg, #1d2b4a 0%, #16161b 70%);
-  color: #cfdcff;
+  background: linear-gradient(140deg, var(--accent-soft) 0%, var(--surface-2) 70%);
+  color: var(--accent-text);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -193,7 +292,7 @@ p {
 
 .sidenav__name {
   overflow: hidden;
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 13.5px;
   font-weight: 500;
   text-overflow: ellipsis;
@@ -201,7 +300,7 @@ p {
 }
 
 .sidenav__handle {
-  color: #5f5f68;
+  color: var(--text-faint);
   font-size: 11.5px;
 }
 
@@ -215,7 +314,7 @@ p {
 
 .sidenav__section {
   padding: 14px 20px 6px;
-  color: #5f5f68;
+  color: var(--text-faint);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -234,18 +333,23 @@ p {
 
 .sidenav__menu .ant-menu-item,
 .sidenav__menu .ant-menu-submenu-title {
-  color: #b9b9c2;
+  color: var(--text-nav);
 }
 
 .sidenav__menu .ant-menu-item-selected {
   font-weight: 500;
 }
 
-/* Активный раздел («Проекты» на /projects) — та же «пилюля», что и у пунктов. */
+/* Активный раздел («Работодателям»): подсвечивается только цветом antd,
+   без подложки — «пилюля» остаётся за текущей страницей. */
 .sidenav__menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
-  background: #1e1e25;
-  color: #ffffff;
+  background: transparent;
   font-weight: 500;
+}
+
+/* Просто раскрытый раздел не «горит» синим — как неактивные пункты. */
+.sidenav__menu .ant-menu-submenu-open:not(.ant-menu-submenu-selected) > .ant-menu-submenu-title {
+  color: var(--text-nav);
 }
 
 .sidenav__menu .ant-menu-sub.ant-menu-inline {
@@ -262,19 +366,19 @@ p {
 }
 
 .sidenav__dot--success {
-  background: #3ecf8e;
+  background: var(--success);
 }
 
 .sidenav__dot--processing {
-  background: #4d8dfd;
+  background: var(--accent);
 }
 
 .sidenav__dot--warning {
-  background: #e2a03f;
+  background: var(--warning);
 }
 
 .sidenav__dot--default {
-  background: #6b6b74;
+  background: var(--text-dim);
 }
 
 /* ==========================================================================
@@ -295,7 +399,7 @@ p {
 
 .page-header__eyebrow {
   margin-bottom: 10px;
-  color: #4d8dfd;
+  color: var(--accent);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -303,7 +407,7 @@ p {
 }
 
 .page-header__title {
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 30px;
   font-weight: 600;
   line-height: 1.35;
@@ -312,7 +416,7 @@ p {
 .page-header__subtitle {
   max-width: 720px;
   margin-top: 10px;
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 15px;
   line-height: 1.5;
 }
@@ -339,7 +443,7 @@ p {
 
 .section__title {
   margin-bottom: 18px;
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 19px;
   font-weight: 600;
   line-height: 1.4;
@@ -350,25 +454,25 @@ p {
 }
 
 .section__link {
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 13px;
 }
 
 .section__link:hover {
-  color: #4d8dfd;
+  color: var(--accent);
 }
 
 .section__lead {
   max-width: 820px;
   margin-bottom: 12px;
-  color: #90909a;
+  color: var(--text-muted);
   line-height: 1.55;
 }
 
 .section__paragraph {
   max-width: 820px;
   margin-bottom: 14px;
-  color: #c9c9d1;
+  color: var(--text-bright);
   line-height: 1.55;
 }
 
@@ -391,18 +495,18 @@ p {
   display: inline-block;
   margin-bottom: 18px;
   padding: 3px 10px;
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  background: #151518;
-  border: 1px solid #26262c;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 999px;
 }
 
 .hero__name {
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 38px;
   font-weight: 600;
   line-height: 1.35;
@@ -410,14 +514,14 @@ p {
 
 .hero__role {
   margin-top: 10px;
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 14px;
   line-height: 1.5;
 }
 
 .hero__tagline {
   margin-top: 22px;
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 22px;
   font-weight: 500;
   line-height: 1.45;
@@ -426,7 +530,7 @@ p {
 .hero__intro {
   max-width: 720px;
   margin-top: 14px;
-  color: #90909a;
+  color: var(--text-muted);
   line-height: 1.55;
 }
 
@@ -444,20 +548,20 @@ p {
   justify-content: space-between;
   gap: 20px;
   padding: 24px 26px;
-  background: #101014;
-  border: 1px solid #22222a;
+  background: var(--code-bg);
+  border: 1px solid var(--divider);
   border-radius: 12px;
 }
 
 .cta__title {
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 17px;
   font-weight: 500;
 }
 
 .cta__subtitle {
   margin-top: 6px;
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
@@ -473,8 +577,8 @@ p {
 
 .project-card.ant-card {
   height: 100%;
-  background: #151518;
-  border: 1px solid #22222a;
+  background: var(--surface);
+  border: 1px solid var(--divider);
   border-radius: 12px;
   transition:
     border-color 0.18s ease,
@@ -483,8 +587,8 @@ p {
 }
 
 .project-card.ant-card:hover {
-  background: #17171b;
-  border-color: #3a3a44;
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
   transform: translateY(-2px);
   box-shadow: none;
 }
@@ -506,17 +610,17 @@ p {
 }
 
 .project-card__status {
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 12.5px;
 }
 
 .project-card__demo {
   padding: 1px 8px;
-  color: #4d8dfd;
+  color: var(--accent);
   font-size: 11px;
   letter-spacing: 0.04em;
-  background: rgba(77, 141, 253, 0.12);
-  border: 1px solid rgba(77, 141, 253, 0.28);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-tint-border);
   border-radius: 999px;
 }
 
@@ -528,11 +632,11 @@ p {
 }
 
 .project-card__link {
-  color: #e9e9ec;
+  color: var(--text);
 }
 
 .project-card__link:hover {
-  color: #4d8dfd;
+  color: var(--accent);
 }
 
 .project-card__tagline {
@@ -540,7 +644,7 @@ p {
   min-height: 63px;
   margin-bottom: 14px;
   overflow: hidden;
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 13.5px;
   line-height: 1.5;
   -webkit-box-orient: vertical;
@@ -568,16 +672,16 @@ p {
 .stack-tags__tag.ant-tag {
   margin: 0;
   padding: 0 8px;
-  color: #b9b9c2;
+  color: var(--text-nav);
   font-size: 12px;
   line-height: 20px;
-  background: #1b1b20;
-  border: 1px solid #26262c;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
   border-radius: 6px;
 }
 
 .stack-tags__tag--more.ant-tag {
-  color: #6b6b74;
+  color: var(--text-dim);
 }
 
 .skill-group {
@@ -586,7 +690,7 @@ p {
 
 .skill-group__title {
   margin-bottom: 10px;
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 14px;
   font-weight: 500;
 }
@@ -609,7 +713,7 @@ p {
 }
 
 .detail-actions__hint {
-  color: #6b6b74;
+  color: var(--text-dim);
   font-size: 11.5px;
 }
 
@@ -618,7 +722,7 @@ p {
   flex-basis: 100%;
   max-width: 460px;
   margin: 2px 0 0;
-  color: #6b6b74;
+  color: var(--text-dim);
   font-size: 12.5px;
   line-height: 1.55;
 }
@@ -630,19 +734,19 @@ p {
 .fact {
   height: 100%;
   padding: 14px 16px;
-  background: #101014;
-  border: 1px solid #1e1e23;
+  background: var(--code-bg);
+  border: 1px solid var(--border-soft);
   border-radius: 10px;
 }
 
 .fact__label {
   margin-bottom: 6px;
-  color: #6b6b74;
+  color: var(--text-dim);
   font-size: 12px;
 }
 
 .fact__value {
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 14px;
   line-height: 1.45;
 }
@@ -657,7 +761,7 @@ p {
   position: relative;
   margin-bottom: 10px;
   padding-left: 20px;
-  color: #c9c9d1;
+  color: var(--text-bright);
   line-height: 1.55;
 }
 
@@ -665,7 +769,7 @@ p {
   position: absolute;
   top: 0;
   left: 2px;
-  color: #4d8dfd;
+  color: var(--accent);
   content: '▸';
 }
 
@@ -674,19 +778,19 @@ p {
   margin: 4px 0 0;
   padding: 16px 18px;
   overflow-x: auto;
-  color: #c9c9d1;
+  color: var(--text-bright);
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
   font-size: 13px;
   line-height: 1.7;
-  background: #101014;
-  border: 1px solid #22222a;
+  background: var(--code-bg);
+  border: 1px solid var(--divider);
   border-radius: 10px;
 }
 
 .shot-card.ant-card {
   height: 100%;
-  background: #151518;
-  border: 1px solid #22222a;
+  background: var(--surface);
+  border: 1px solid var(--divider);
   border-radius: 12px;
 }
 
@@ -697,8 +801,8 @@ p {
 .shot-card__frame {
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  background: #101014;
-  border: 1px solid #22222a;
+  background: var(--code-bg);
+  border: 1px solid var(--divider);
   border-radius: 10px;
 }
 
@@ -716,7 +820,7 @@ p {
 
 .shot-card__caption {
   margin-top: 10px;
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -724,17 +828,17 @@ p {
 .gallery-note,
 .gallery-empty {
   margin-top: 14px;
-  color: #6b6b74;
+  color: var(--text-dim);
   font-size: 13px;
 }
 
 .gallery-empty {
   margin-top: 0;
   padding: 28px 24px;
-  color: #90909a;
+  color: var(--text-muted);
   text-align: center;
-  background: #101014;
-  border: 1px dashed #26262c;
+  background: var(--code-bg);
+  border: 1px dashed var(--border);
   border-radius: 12px;
 }
 
@@ -744,8 +848,8 @@ p {
   gap: 4px;
   height: 100%;
   padding: 16px 18px;
-  background: #101014;
-  border: 1px solid #22222a;
+  background: var(--code-bg);
+  border: 1px solid var(--divider);
   border-radius: 12px;
   transition:
     border-color 0.18s ease,
@@ -753,7 +857,7 @@ p {
 }
 
 .project-nav:hover {
-  border-color: #3a3a44;
+  border-color: var(--border-strong);
   transform: translateY(-2px);
 }
 
@@ -763,18 +867,18 @@ p {
 }
 
 .project-nav__label {
-  color: #6b6b74;
+  color: var(--text-dim);
   font-size: 12px;
 }
 
 .project-nav__name {
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 15px;
   font-weight: 500;
 }
 
 .project-nav__tagline {
-  color: #90909a;
+  color: var(--text-muted);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -785,13 +889,13 @@ p {
 
 .contact-card.ant-card {
   height: 100%;
-  background: #151518;
-  border: 1px solid #22222a;
+  background: var(--surface);
+  border: 1px solid var(--divider);
   border-radius: 12px;
 }
 
 .contact-card__label {
-  color: #6b6b74;
+  color: var(--text-dim);
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -799,7 +903,7 @@ p {
 
 .contact-card__value {
   margin-top: 8px;
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 15px;
   word-break: break-all;
 }
@@ -815,7 +919,7 @@ p {
 }
 
 .empty-state__code {
-  color: #26262c;
+  color: var(--border);
   font-size: 72px;
   font-weight: 600;
   line-height: 1;
@@ -823,30 +927,31 @@ p {
 
 .empty-state__title {
   margin-top: 12px;
-  color: #e9e9ec;
+  color: var(--text);
   font-size: 24px;
   font-weight: 600;
 }
 
 .empty-state__text {
   margin: 12px 0 24px;
-  color: #90909a;
+  color: var(--text-muted);
 }
 
 /* ==========================================================================
    Переопределения antd
    ========================================================================== */
 
+/* Текст на акцентной кнопке всегда светлый, в том числе в светлой теме. */
 .ant-btn-primary {
   color: #ffffff;
 }
 
 .ant-card-head {
-  border-bottom-color: #1e1e23;
+  border-bottom-color: var(--border-soft);
 }
 
 .ant-badge-status-text {
-  color: #90909a;
+  color: var(--text-muted);
 }
 
 .ant-tooltip-inner {
@@ -899,5 +1004,61 @@ p {
 
   .project-card__tagline {
     min-height: 0;
+  }
+}
+
+/* ==========================================================================
+   Плавная смена темы
+   ========================================================================== */
+
+/* Переходим только цвета: `transition: all` ломает анимации antd. */
+:root {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* ==========================================================================
+   Печать страницы резюме
+   ========================================================================== */
+
+@media print {
+  :root,
+  :root[data-theme='light'] {
+    --bg-app: #ffffff;
+    --bg-sider: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --surface-3: #ffffff;
+    --surface-hover: #f2f2f4;
+    --code-bg: #f7f7f8;
+    --border: #d8d8dd;
+    --border-soft: #e4e4e8;
+    --divider: #e4e4e8;
+    --text: #000000;
+    --text-strong: #000000;
+    --text-bright: #1a1a1a;
+    --text-nav: #1a1a1a;
+    --text-muted: #333333;
+    --text-dim: #4a4a4a;
+    --text-faint: #666666;
+    --accent: #1a4fbb;
+    --accent-soft: #eef3fc;
+    --accent-text: #10305f;
+  }
+
+  .app-sider,
+  .app-header,
+  .no-print {
+    display: none !important;
+  }
+
+  .app-content {
+    background: var(--bg-app) !important;
+  }
+
+  .page-container {
+    max-width: none;
+    padding: 0;
   }
 }
