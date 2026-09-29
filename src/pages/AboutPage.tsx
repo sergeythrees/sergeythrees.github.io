@@ -2,6 +2,7 @@ import { Col, Row } from 'antd';
 import { useLocale, useT } from '../i18n/LocaleProvider';
 import PageHeader from '../components/PageHeader';
 import StackTags from '../components/StackTags';
+import { assetUrl } from '../components/ScreenshotGallery';
 
 export default function AboutPage() {
   const t = useT();
@@ -13,11 +14,27 @@ export default function AboutPage() {
       <PageHeader eyebrow={t.about.eyebrow} title={t.about.title} subtitle={site.role} />
 
       <section className="section">
-        {site.about.map((paragraph) => (
-          <p key={paragraph.slice(0, 32)} className="section__paragraph">
-            {paragraph}
-          </p>
-        ))}
+        <Row gutter={[32, 32]} align="top">
+          <Col xs={24} sm={8} md={6}>
+            <figure className="about-photo">
+              <img
+                className="about-photo__img"
+                src={assetUrl('photo.jpg')}
+                alt={site.name}
+                width={199}
+                height={199}
+                loading="lazy"
+              />
+            </figure>
+          </Col>
+          <Col xs={24} sm={16} md={18}>
+            {site.about.map((paragraph) => (
+              <p key={paragraph.slice(0, 32)} className="section__paragraph">
+                {paragraph}
+              </p>
+            ))}
+          </Col>
+        </Row>
       </section>
 
       <section className="section">

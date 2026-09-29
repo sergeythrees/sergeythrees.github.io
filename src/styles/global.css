@@ -695,6 +695,24 @@ p {
   font-weight: 500;
 }
 
+/* Фото на странице «Обо мне» */
+.about-photo {
+  width: 199px; /* натуральный размер photo.jpg — не растягиваем */
+  max-width: 100%;
+  margin: 0;
+}
+
+.about-photo__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-2);
+  object-fit: cover;
+}
+
 /* ==========================================================================
    Страница проекта
    ========================================================================== */
