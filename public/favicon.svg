@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Sergey Stepanenko">
+  <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="#0b0b0d" stroke="#26262c" stroke-width="3" />
+  <text
+    x="32"
+    y="44"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif"
+    font-size="34"
+    font-weight="600"
+    fill="#4d8dfd"
+  >SS</text>
+</svg>
