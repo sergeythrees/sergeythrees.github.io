@@ -3,6 +3,7 @@ import { Badge, Button, Card } from 'antd';
 import type { Project } from '../data/types';
 import { useT } from '../i18n/LocaleProvider';
 import StackTags from './StackTags';
+import { assetUrl } from './ScreenshotGallery';
 
 /** Сколько тегов показываем в карточке, остальные — как «+N». */
 const MAX_TAGS = 5;
@@ -49,11 +50,11 @@ export default function ProjectCard({ project, kind = 'project' }: ProjectCardPr
         {project.appUrl ? (
           <Button
             type="primary"
-            href={project.appUrl}
+            href={assetUrl(project.appUrl)}
             target="_blank"
             rel="noreferrer noopener"
           >
-            {t.common.open}
+            {kind === 'task' ? t.tasks.openStand : t.common.open}
           </Button>
         ) : (
           <Button onClick={() => navigate(detailPath)}>{t.common.open}</Button>

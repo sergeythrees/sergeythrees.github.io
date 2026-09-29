@@ -305,19 +305,19 @@ export const contentRu: Content = {
   tasks: [
     {
       id: 'green-api',
-      name: 'Чат-клиенты MAX и Telegram на GREEN-API',
+      name: 'Чат-клиент Telegram на GREEN-API',
       tagline: 'Веб-клиент чата поверх HTTP API',
       badge: 'Тестовое задание',
       summary:
-        'Веб-клиент чата для мессенджера MAX на HTTP API GREEN-API: вход по учётным данным ' +
+        'Веб-клиент чата для мессенджера Telegram на HTTP API GREEN-API: вход по учётным данным ' +
         'инстанса, чат по номеру телефона, отправка сообщений и приём ответа длинным опросом. ' +
-        'Второе приложение в том же монорепо — тот же клиент для Telegram на официальном UI Kit.',
+        'Используется официальный UI Kit от Telegram.',
       status: 'Выполнено',
       statusType: 'success',
       facts: [
-        { label: 'Тестов', value: '~205 (Vitest + testing-library)' },
-        { label: 'Приложений', value: '2 (MAX и Telegram)' },
+        { label: 'Тестов', value: '132 (Vitest + testing-library)' },
         { label: 'Интеграция', value: 'GREEN-API HTTP API' },
+        { label: 'Живой стенд', value: 'на заглушке бэкенда' },
       ],
       features: [
         'Вход по apiUrl, idInstance и apiTokenInstance с проверкой состояния инстанса.',
@@ -325,36 +325,37 @@ export const contentRu: Content = {
         'Отправка текста с оптимистичным сообщением, которое сверяется с серверным idMessage.',
         'Длинный опрос ReceiveNotification / DeleteNotification с паузой при ошибках.',
         'Двухпанельный UI: список чатов, поиск, пузыри, композер, тёмная тема.',
+        'Палитра и геометрия взяты из темы настоящего Telegram Web, а не подобраны на глаз.',
         'Скриншот-харнесс на чистом Chrome DevTools Protocol без внешних зависимостей.',
       ],
       stack: [
         'TypeScript',
-        'React 19',
         'React 18',
         'Vite 8',
-        '@maxhub/max-ui',
         '@telegram-apps/telegram-ui',
         'Vitest',
         'jsdom',
       ],
       links: [],
+      appUrl: 'demos/green-api/',
       runNote:
-        'Репозиторий не опубликован: код лежит локально. Запуск из корня монорепо, Node 22.12+.',
-      runCommands: ['npm install', 'npm run dev:max', 'npm run dev:telegram'],
+        'Стенд открывается прямо здесь: бэкенд GREEN-API подменён заглушкой, поэтому видны вход, ' +
+        'создание чата, отправка сообщения и автоответ собеседника. Локальный запуск — из корня ' +
+        'репозитория, Node 22.12+.',
+      runCommands: ['npm install', 'npm run dev:telegram'],
       details: [
         'Ключевая часть задания — работа с чужим API строго по документации: весь транспорт ' +
           'вынесен в один типизированный клиент, контракты методов выписаны и сверены с документацией.',
-        'Интересный момент — перенос решения на другую платформу. Один и тот же продукт ' +
-          'реализован дважды на разных API и разных дизайн-системах, с осознанным отказом ' +
-          'от копипасты: совпадают архитектура, структура каталогов и подход к тестам.',
-        'Дизайн не подбирался на глаз — значения токенов и палитра сверены с реальными ' +
-          'веб-клиентами MAX и Telegram.',
+        'Оформление не подбиралось на глаз: значения токенов и палитра разобраны из сборки ' +
+          'настоящего Telegram Web, поэтому клиент выглядит как привычный мессенджер.',
+        'Объём задания ограничен текстовыми сообщениями — медиа, группы и реакции в него ' +
+          'не входили, и это зафиксировано явно.',
+        'Стенд-заглушка — отдельная сборка с перехватом HTTP: она отвечает на методы GREEN-API ' +
+          'заранее подготовленными данными, включая длинный поллинг и автоответ собеседника.',
       ],
       screenshots: [
-        { src: 'projects/green-api/01-max-login.webp', caption: 'Вход в MAX-клиент' },
-        { src: 'projects/green-api/02-max-conversation-dark.webp', caption: 'Переписка в MAX, тёмная тема' },
-        { src: 'projects/green-api/03-telegram-login.webp', caption: 'Вход в Telegram-клиент' },
-        { src: 'projects/green-api/04-telegram-conversation.webp', caption: 'Переписка в Telegram-клиенте' },
+        { src: 'projects/green-api/01-telegram-login.webp', caption: 'Вход по учётным данным инстанса' },
+        { src: 'projects/green-api/02-telegram-conversation.webp', caption: 'Переписка в Telegram-клиенте' },
       ],
     },
     {

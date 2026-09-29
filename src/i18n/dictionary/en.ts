@@ -115,8 +115,9 @@ export const en: Dictionary = {
   tasks: {
     eyebrow: 'Section',
     title: 'Test assignments',
-    subtitle: 'Assignments I took as a qualification check. The source code is open.',
+    subtitle: 'Assignments I took as a qualification check. The stand and the source code are open.',
     badge: 'Test assignment',
+    openStand: 'Open the stand',
   },
   notFound: {
     title: 'Page not found',

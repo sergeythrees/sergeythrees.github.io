@@ -5,7 +5,7 @@ import type { Project } from '../data/types';
 import type { Dictionary } from '../i18n/dictionary/ru';
 import PageHeader from './PageHeader';
 import StackTags from './StackTags';
-import ScreenshotGallery from './ScreenshotGallery';
+import ScreenshotGallery, { assetUrl } from './ScreenshotGallery';
 
 interface CaseDetailProps {
   project: Project;
@@ -15,13 +15,22 @@ interface CaseDetailProps {
   /** Соседние записи того же раздела — из них берутся prev/next. */
   prevNext: Project[];
   t: Dictionary;
+  /** Подпись основной кнопки: у проектов «Открыть приложение», у заданий — стенд. */
+  openLabel?: string;
 }
 
 /**
  * Общая разметка детальной страницы проекта и тестового задания:
  * один вид для обоих разделов, отличается только база ссылок.
  */
-export default function CaseDetail({ project, backTo, backLabel, prevNext, t }: CaseDetailProps) {
+export default function CaseDetail({
+  project,
+  backTo,
+  backLabel,
+  prevNext,
+  t,
+  openLabel,
+}: CaseDetailProps) {
   const index = prevNext.findIndex((item) => item.id === project.id);
   const showNav = prevNext.length > 1 && index >= 0;
   const prev = showNav ? prevNext[(index - 1 + prevNext.length) % prevNext.length] : undefined;
@@ -46,11 +55,11 @@ export default function CaseDetail({ project, backTo, backLabel, prevNext, t }: 
                 type="primary"
                 size="large"
                 icon={<ExportOutlined />}
-                href={project.appUrl}
+                href={assetUrl(project.appUrl)}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {t.project.openApp}
+                {openLabel ?? t.project.openApp}
               </Button>
             ) : (
               <Tooltip title={project.runNote ?? t.project.localOnly}>
@@ -65,7 +74,7 @@ export default function CaseDetail({ project, backTo, backLabel, prevNext, t }: 
             {project.links.map((link) => (
               <div key={link.href} className="detail-actions__item">
                 <Button
-                  href={link.href}
+                  href={assetUrl(link.href)}
                   target="_blank"
                   rel="noreferrer noopener"
                   icon={<ExportOutlined />}

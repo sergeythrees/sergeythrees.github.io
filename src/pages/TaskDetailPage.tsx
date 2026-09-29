@@ -34,6 +34,7 @@ export default function TaskDetailPage() {
       backLabel={t.nav.tasks}
       prevNext={tasks}
       t={t}
+      openLabel={t.tasks.openStand}
     />
   );
 }

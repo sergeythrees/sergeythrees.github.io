@@ -302,19 +302,20 @@ export const contentEn: Content = {
   tasks: [
     {
       id: 'green-api',
-      name: 'MAX and Telegram chat clients on GREEN-API',
+      name: 'Telegram chat client on GREEN-API',
       tagline: 'A web chat client on top of an HTTP API',
       badge: 'Test assignment',
       summary:
-        'A web chat client for the MAX messenger on the GREEN-API HTTP API: sign-in with instance ' +
-        'credentials, a chat by phone number, sending messages and receiving replies via long polling. ' +
-        'The second app in the same monorepo is the same client for Telegram on the official UI Kit.',
+        'A web chat client for Telegram on the GREEN-API HTTP API: sign-in with instance credentials, ' +
+        'a chat by phone number or @username, sending messages via SendMessage and receiving replies ' +
+        'through ReceiveNotification long polling. The UI is built on the official Telegram UI Kit ' +
+        'and follows the look of Telegram Web.',
       status: 'Completed',
       statusType: 'success',
       facts: [
-        { label: 'Tests', value: '~205 (Vitest + testing-library)' },
-        { label: 'Apps', value: '2 (MAX and Telegram)' },
+        { label: 'Tests', value: '132 (Vitest + testing-library)' },
         { label: 'Integration', value: 'GREEN-API HTTP API' },
+        { label: 'Live stand', value: 'on a stubbed backend' },
       ],
       features: [
         'Sign-in with apiUrl, idInstance and apiTokenInstance, with instance state validation.',
@@ -322,36 +323,36 @@ export const contentEn: Content = {
         'Sending text with an optimistic message that is reconciled against the server idMessage.',
         'Long polling with ReceiveNotification / DeleteNotification and a pause on errors.',
         'Two-pane UI: chat list, search, bubbles, composer, dark theme.',
+        'The palette and geometry come from the real Telegram Web theme, not eyeballed.',
         'A screenshot harness on raw Chrome DevTools Protocol with no external dependencies.',
       ],
       stack: [
         'TypeScript',
-        'React 19',
         'React 18',
         'Vite 8',
-        '@maxhub/max-ui',
         '@telegram-apps/telegram-ui',
         'Vitest',
         'jsdom',
       ],
       links: [],
+      appUrl: 'demos/green-api/',
       runNote:
-        'The repository is not published: the code is local. Run from the monorepo root, Node 22.12+.',
-      runCommands: ['npm install', 'npm run dev:max', 'npm run dev:telegram'],
+        'The stand opens right here: the GREEN-API backend is replaced with a stub, so you can see ' +
+        'sign-in, creating a chat, sending a message and the automatic reply. To run it locally, ' +
+        'start from the repository root, Node 22.12+.',
+      runCommands: ['npm install', 'npm run dev:telegram'],
       details: [
         'The key part of the assignment was working with a third-party API strictly by the documentation: ' +
           'the whole transport lives in one typed client, and the method contracts are written out and checked against the docs.',
-        'An interesting part was porting the solution to another platform. The same product ' +
-          'is implemented twice on different APIs and different design systems, deliberately avoiding ' +
-          'copy-paste: the architecture, directory structure and testing approach all match.',
-        'The design was not eyeballed — token values and the palette were checked against the real ' +
-          'MAX and Telegram web clients.',
+        'The design was not eyeballed: token values and the palette were taken from the build of the real ' +
+          'Telegram Web, so the client looks like a familiar messenger.',
+        'The scope was limited to text messages — media, groups and reactions were out of it, and that is stated explicitly.',
+        'The demo stand is a separate build with an HTTP interceptor: it answers GREEN-API methods with ' +
+          'prepared data, including long polling and an automatic reply from the peer.',
       ],
       screenshots: [
-        { src: 'projects/green-api/01-max-login.webp', caption: 'Signing in to the MAX client' },
-        { src: 'projects/green-api/02-max-conversation-dark.webp', caption: 'Conversation in MAX, dark theme' },
-        { src: 'projects/green-api/03-telegram-login.webp', caption: 'Signing in to the Telegram client' },
-        { src: 'projects/green-api/04-telegram-conversation.webp', caption: 'Conversation in the Telegram client' },
+        { src: 'projects/green-api/01-telegram-login.webp', caption: 'Signing in with instance credentials' },
+        { src: 'projects/green-api/02-telegram-conversation.webp', caption: 'Conversation in the Telegram client' },
       ],
     },
     {
