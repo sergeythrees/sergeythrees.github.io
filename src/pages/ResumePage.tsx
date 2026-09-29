@@ -21,13 +21,27 @@ export default function ResumePage() {
 
       <header className="resume-head">
         <div className="resume-head__main">
-          <h1 className="resume-head__name">{resume.name}</h1>
-          <div className="resume-head__title">{resume.title}</div>
+          <Row gutter={[32, 32]} align="middle">
+            <Col xs={24} sm={8} md={6}>
+              <figure className="about-photo">
+                <img
+                  className="about-photo__img"
+                  src={assetUrl('photo.jpg')}
+                  width={199}
+                  height={199}
+                  loading="lazy"
+                />
+              </figure>
+            </Col>
+            <Col xs={24} sm={16} md={18}>
+              <h1 className="resume-head__name">{resume.name}</h1>
+              <div className="resume-head__title">{resume.title}</div>
+            </Col>
+          </Row>
           <p className="resume-head__summary">{resume.summary}</p>
         </div>
 
         <aside className="resume-head__side">
-          <div className="resume-head__contacts-title">{t.resume.contacts}</div>
           <ul className="resume-contacts">
             {resume.contacts.map((contact) => (
               <li key={contact.label} className="resume-contact">
@@ -80,9 +94,10 @@ export default function ResumePage() {
             <div className="resume-timeline">
               {resume.experience.map((job) => (
                 <article key={`${job.company}-${job.period}`} className="resume-timeline__item">
-                  <h3 className="resume-timeline__position">{job.position}</h3>
-                  <div className="resume-timeline__company">{job.company}</div>
-                  <div className="resume-timeline__period">{job.period}</div>
+                  <div className="resume-timeline__head">
+                    <h3 className="resume-timeline__position">{job.position}, {job.company}</h3>
+                    <div className="resume-timeline__period">{job.period}</div>
+                  </div>
                   <div className="resume-timeline__meta">
                     {job.location} · {job.industry}
                   </div>
@@ -128,7 +143,6 @@ export default function ResumePage() {
                 <div className="resume-edu__institution">
                   {item.institution} · {item.field}
                 </div>
-                <div className="resume-edu__grade">{item.grade}</div>
               </article>
             ))}
           </section>

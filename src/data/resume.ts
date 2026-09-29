@@ -24,7 +24,7 @@ const languages: Resume['languages'] = [
 
 export const resumeRu: Resume = {
   name: 'Сергей Степаненко',
-  title: 'Senior Frontend Developer · UX Engineer',
+  title: 'Senior Frontend Developer · UX Engineer · Разработчик · AI-автоматизация · Telegram Mini Apps · React',
   summary:
     'Фронтенд-разработчик с опытом с 2017 года. Специализируюсь на визуальных редакторах: ' +
     'спроектировал WYSIWYG-редактор форм FormEngine и провёл редизайн конструктора ' +
@@ -131,8 +131,7 @@ export const resumeRu: Resume = {
   preferences: [
     { label: 'Формат работы', value: 'Удалённо' },
     { label: 'Готовность к тестовым заданиям', value: 'Да' },
-    { label: 'Дополнительные проверки', value: 'Да (допрос, background check)' },
-    { label: 'Переезд', value: 'Не готов' },
+    { label: 'Переезд', value: 'Готов' },
     { label: 'Выход на работу', value: 'Немедленно' },
     { label: 'Ожидания по зарплате', value: '$50 000 – 60 000' },
     { label: 'Спонсорство визы требуется', value: 'США, ЕС, Канада, Великобритания' },

@@ -4,6 +4,7 @@ import { AppstoreOutlined, GithubOutlined, MailOutlined } from '@ant-design/icon
 import { useLocale, useT } from '../i18n/LocaleProvider';
 import ProjectCard from '../components/ProjectCard';
 import StackTags from '../components/StackTags';
+import { assetUrl } from '../components/ScreenshotGallery';
 
 export default function HomePage() {
   const t = useT();
@@ -17,10 +18,25 @@ export default function HomePage() {
   return (
     <>
       <section className="hero">
-        <span className="hero__badge">{t.home.eyebrow}</span>
-        <h1 className="hero__name">{site.name}</h1>
-        <div className="hero__role">{site.role}</div>
-        <p className="hero__tagline">{site.headline}</p>
+        <Row gutter={[32, 32]} align="top">
+          <Col xs={24} sm={8} md={4}>
+            <figure className="about-photo">
+              <img
+                className="about-photo__img"
+                src={assetUrl('photo.jpg')}
+                alt={site.name}
+                width={199}
+                height={199}
+                loading="lazy"
+              />
+            </figure>
+          </Col>
+          <Col xs={24} sm={16} md={20}>
+            <h1 className="hero__name">{site.name}</h1>
+            <div className="hero__role">{site.role}</div>
+          </Col>
+        </Row>
+
         <p className="hero__intro">{site.intro}</p>
 
         <div className="hero__actions">

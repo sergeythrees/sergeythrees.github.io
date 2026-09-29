@@ -128,7 +128,7 @@
 }
 
 .resume-head__side {
-  flex: 0 1 280px;
+  flex: 0 1 240px;
   min-width: 0;
 }
 
@@ -249,6 +249,14 @@ a.resume-contact__value:hover {
   border-radius: 50%;
   box-shadow: 0 0 0 3px var(--bg-app);
   content: '';
+}
+
+.resume-timeline__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .resume-timeline__position {
