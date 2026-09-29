@@ -116,7 +116,9 @@ public/
   projects/<id>/*.webp         скриншоты проектов, по каталогу на проект
   resume/cv-ru.pdf             PDF-резюме на русском
   resume/cv-en.pdf             PDF-резюме на английском
-  demos/green-api/             стенд-заглушка тестового задания (сборка + mock-green-api.js)
+  demos/green-api/             стенд-заглушка тестового задания (сгенерированный артефакт)
+scripts/build-stand.mjs        сборка стенда GREEN-API из исходного репозитория green-api
+stand/green-api/               исходник заглушки стенда и README по пересборке
 .github/workflows/deploy.yml   сборка и публикация на GitHub Pages
 ```
 
@@ -160,14 +162,27 @@ magick вход.png -auto-orient -resize "1000x1000>" -strip -quality 82 \
 бэкендом: посетителю не нужны ключи инстанса, а стенд открывается кнопкой «Открыть
 стенд» со страницы задания (поле `appUrl` в контенте).
 
-Как он собирается: исходный репозиторий копируется во временный каталог, в
-`vite.config.ts` добавляется `base: './'`, а перед бандлом подключается
-`public/mock-green-api.js`. Этот файл оборачивает `window.fetch` и отвечает на методы
-GREEN-API (`getStateInstance`, `checkAccount`, `sendMessage`, длинный поллинг
+Как он собирается: `npm run stand:green-api` (обёртка над
+`scripts/build-stand.mjs`) копирует исходный репозиторий во временный каталог,
+подставляет `stand/green-api/mock-green-api.js` в `public/` приложения,
+собирает его через `npx vite build --base=./` (относительные пути к ассетам,
+без правки `vite.config.ts`) и кладёт результат в `public/demos/green-api/`.
+Исходный репозиторий при этом не изменяется: он только читается.
+
+```bash
+GREEN_API_SRC=/path/to/green-api npm run stand:green-api
+```
+
+Заглушка оборачивает `window.fetch` и отвечает на методы GREEN-API
+(`getStateInstance`, `checkAccount`, `sendMessage`, длинный поллинг
 `receiveNotification` и остальные) заранее подготовленными данными, включая
 автоответ собеседника. Сопоставление идёт по пути запроса, а не по хосту, поэтому
-стенд работает с любым `apiUrl`, который введёт посетитель. Сборка кладётся в
-`public/demos/green-api/`, исходный репозиторий не изменяется.
+стенд работает с любым `apiUrl`, который введёт посетитель.
+
+`public/demos/green-api/` — сгенерированный артефакт: он перезаписывается целиком
+при каждой сборке и коммитится в репозиторий (CI стенд не пересобирает). Подробности,
+требования (Node 22+ и сеть для `npm install`) и отладочные флаги — в
+[`stand/green-api/README.md`](stand/green-api/README.md).
 
 ## Скриншоты
 
