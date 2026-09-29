@@ -338,7 +338,13 @@ export const contentRu: Content = {
         'Vitest',
         'jsdom',
       ],
-      links: [],
+      links: [
+        {
+          label: 'Исходный код',
+          href: 'https://github.com/sergeythrees/green-api',
+          hint: 'sergeythrees/green-api',
+        },
+      ],
       appUrl: 'demos/green-api/',
       runNote:
         'Стенд открывается прямо здесь: по умолчанию бэкенд GREEN-API подменён заглушкой, ' +

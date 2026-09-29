@@ -334,7 +334,13 @@ export const contentEn: Content = {
         'Vitest',
         'jsdom',
       ],
-      links: [],
+      links: [
+        {
+          label: 'Source code',
+          href: 'https://github.com/sergeythrees/green-api',
+          hint: 'sergeythrees/green-api',
+        },
+      ],
       appUrl: 'demos/green-api/',
       runNote:
         'The stand opens right here: by default the GREEN-API backend is replaced with a stub, so ' +
