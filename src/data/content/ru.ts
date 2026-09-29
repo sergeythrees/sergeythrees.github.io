@@ -315,7 +315,7 @@ export const contentRu: Content = {
       status: 'Выполнено',
       statusType: 'success',
       facts: [
-        { label: 'Тестов', value: '132 (Vitest + testing-library)' },
+        { label: 'Тестов', value: '131 (Vitest + testing-library)' },
         { label: 'Интеграция', value: 'GREEN-API HTTP API' },
         { label: 'Живой стенд', value: 'на заглушке бэкенда' },
       ],

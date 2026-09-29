@@ -313,7 +313,7 @@ export const contentEn: Content = {
       status: 'Completed',
       statusType: 'success',
       facts: [
-        { label: 'Tests', value: '132 (Vitest + testing-library)' },
+        { label: 'Tests', value: '131 (Vitest + testing-library)' },
         { label: 'Integration', value: 'GREEN-API HTTP API' },
         { label: 'Live stand', value: 'on a stubbed backend' },
       ],
