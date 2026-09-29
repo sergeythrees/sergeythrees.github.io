@@ -315,7 +315,7 @@ export const contentEn: Content = {
       facts: [
         { label: 'Tests', value: '131 (Vitest + testing-library)' },
         { label: 'Integration', value: 'GREEN-API HTTP API' },
-        { label: 'Live stand', value: 'on a stubbed backend' },
+        { label: 'Live stand', value: 'stub or your own instance' },
       ],
       features: [
         'Sign-in with apiUrl, idInstance and apiTokenInstance, with instance state validation.',
@@ -337,9 +337,11 @@ export const contentEn: Content = {
       links: [],
       appUrl: 'demos/green-api/',
       runNote:
-        'The stand opens right here: the GREEN-API backend is replaced with a stub, so you can see ' +
-        'sign-in, creating a chat, sending a message and the automatic reply. To run it locally, ' +
-        'start from the repository root, Node 22.12+.',
+        'The stand opens right here: by default the GREEN-API backend is replaced with a stub, so ' +
+        'you can see sign-in, creating a chat, sending a message and the automatic reply. To try ' +
+        'the real API, use “Log out” in the menu and sign in with your own idInstance and ' +
+        'apiTokenInstance — requests then go straight to GREEN-API. To run it locally, start from ' +
+        'the repository root, Node 22.12+.',
       runCommands: ['npm install', 'npm run dev:telegram'],
       details: [
         'The key part of the assignment was working with a third-party API strictly by the documentation: ' +
@@ -351,8 +353,9 @@ export const contentEn: Content = {
           'prepared data, including long polling and an automatic reply from the peer.',
       ],
       screenshots: [
-        { src: 'projects/green-api/01-telegram-login.webp', caption: 'Signing in with instance credentials' },
-        { src: 'projects/green-api/02-telegram-conversation.webp', caption: 'Conversation in the Telegram client' },
+        { src: 'projects/green-api/01-login.webp', caption: 'Signing in with instance credentials' },
+        { src: 'projects/green-api/02-conversation.webp', caption: 'Conversation' },
+        { src: 'projects/green-api/03-conversation-dark.webp', caption: 'Dark theme' }
       ],
     },
     {

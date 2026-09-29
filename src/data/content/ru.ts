@@ -317,7 +317,7 @@ export const contentRu: Content = {
       facts: [
         { label: 'Тестов', value: '131 (Vitest + testing-library)' },
         { label: 'Интеграция', value: 'GREEN-API HTTP API' },
-        { label: 'Живой стенд', value: 'на заглушке бэкенда' },
+        { label: 'Живой стенд', value: 'заглушка или свой инстанс' },
       ],
       features: [
         'Вход по apiUrl, idInstance и apiTokenInstance с проверкой состояния инстанса.',
@@ -327,6 +327,8 @@ export const contentRu: Content = {
         'Двухпанельный UI: список чатов, поиск, пузыри, композер, тёмная тема.',
         'Палитра и геометрия взяты из темы настоящего Telegram Web, а не подобраны на глаз.',
         'Скриншот-харнесс на чистом Chrome DevTools Protocol без внешних зависимостей.',
+        'Стенд умеет работать и с настоящим API: со своими idInstance и apiTokenInstance ' +
+          'запросы уходят в GREEN-API напрямую, без заглушки.',
       ],
       stack: [
         'TypeScript',
@@ -339,9 +341,11 @@ export const contentRu: Content = {
       links: [],
       appUrl: 'demos/green-api/',
       runNote:
-        'Стенд открывается прямо здесь: бэкенд GREEN-API подменён заглушкой, поэтому видны вход, ' +
-        'создание чата, отправка сообщения и автоответ собеседника. Локальный запуск — из корня ' +
-        'репозитория, Node 22.12+.',
+        'Стенд открывается прямо здесь: по умолчанию бэкенд GREEN-API подменён заглушкой, ' +
+        'поэтому видны вход, создание чата, отправка сообщения и автоответ собеседника. ' +
+        'Чтобы проверить настоящий API, нажмите «Выйти» в меню и войдите со своими ' +
+        'idInstance и apiTokenInstance — дальше запросы уходят прямо в GREEN-API. ' +
+        'Локальный запуск — из корня репозитория, Node 22.12+.',
       runCommands: ['npm install', 'npm run dev:telegram'],
       details: [
         'Ключевая часть задания — работа с чужим API строго по документации: весь транспорт ' +
@@ -354,8 +358,9 @@ export const contentRu: Content = {
           'заранее подготовленными данными, включая длинный поллинг и автоответ собеседника.',
       ],
       screenshots: [
-        { src: 'projects/green-api/01-telegram-login.webp', caption: 'Вход по учётным данным инстанса' },
-        { src: 'projects/green-api/02-telegram-conversation.webp', caption: 'Переписка в Telegram-клиенте' },
+        { src: 'projects/green-api/01-login.webp', caption: 'Вход по учётным данным инстанса' },
+        { src: 'projects/green-api/02-conversation.webp', caption: 'Переписка' },
+        { src: 'projects/green-api/03-conversation-dark.webp', caption: 'Темная тема' }
       ],
     },
     {
