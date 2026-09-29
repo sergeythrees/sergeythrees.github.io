@@ -28,6 +28,16 @@
   var INSTANCE_ID = 4100000001;
   var INSTANCE_WID = ACCOUNT + '@c.us';
 
+  // Демо-инстанс: заглушка отвечает ТОЛЬКО на него. Как только посетитель
+  // выходит и вводит свои idInstance/apiTokenInstance, запросы уходят в
+  // настоящий GREEN-API (у него открыт CORS, поэтому браузер их пропускает).
+  var DEMO_INSTANCE = '4100000001';
+  var DEMO_TOKEN = 'demo-token';
+  var DEMO_API_URL = 'https://4100.api.green-api.com';
+  // Флаг «демо уже подставляли»: после выхода и входа со своими ключами
+  // перезагрузка страницы не возвращает посетителя в демо-режим.
+  var SEEDED_KEY = 'green-api-stand:seeded';
+
   // --- notification queue -------------------------------------------------
   // `receiveNotification` is a long poll: a waiter parks until a notification
   // is pushed, exactly like the real API. Everything the app polls is served
@@ -121,8 +131,22 @@
     return url.indexOf('/' + method + '/') !== -1;
   }
 
+  /** Разбирает адрес GREEN-API: /waInstance{instance}/{method}/{token}. */
+  function parseInstanceRequest(url) {
+    var match = /\/waInstance([^/]+)\/([^/?]+)\/([^/?]+)/.exec(url);
+    if (!match) return null;
+    return { instance: match[1], method: match[2], token: match[3] };
+  }
+
   function isStubbed(url) {
-    if (url.indexOf('/waInstance') === -1) return false;
+    var request = parseInstanceRequest(url);
+    if (!request) return false;
+
+    // Обслуживаем только демо-инстанс: со своими ключами запрос обязан уйти в
+    // настоящий GREEN-API, иначе вход с реальным токеном «удавался» бы на
+    // подставных данных.
+    if (request.instance !== DEMO_INSTANCE || request.token !== DEMO_TOKEN) return false;
+
     var methods = [
       'getStateInstance',
       'getAccountSettings',
@@ -134,7 +158,7 @@
       'receiveNotification',
     ];
     for (var i = 0; i < methods.length; i += 1) {
-      if (methodIn(url, methods[i])) return true;
+      if (request.method === methods[i]) return true;
     }
     return false;
   }
@@ -218,11 +242,13 @@
   };
 
   // --- pre-filled credentials --------------------------------------------
-  // Only when nothing is stored yet: a visitor who typed their own instance in
-  // the login form keeps it.
+  // Демо-ключи подставляем один раз (флаг SEEDED_KEY) и только если в
+  // localStorage ещё ничего нет. После «Выйти» и входа со своими ключами
+  // перезагрузка страницы оставляет посетителя в его инстансе.
   try {
     var existing = window.localStorage.getItem(STORAGE_KEY);
-    if (existing === null || existing === '') {
+    var seeded = window.localStorage.getItem(SEEDED_KEY) === '1';
+    if ((existing === null || existing === '') && !seeded) {
       // Drop the key an earlier version of this mock left under the old name.
       try {
         window.localStorage.removeItem(LEGACY_STORAGE_KEY);
@@ -232,31 +258,35 @@
       window.localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify({
-          apiUrl: 'https://4100.api.green-api.com',
-          idInstance: '4100000001',
-          apiTokenInstance: 'demo-token',
+          apiUrl: DEMO_API_URL,
+          idInstance: DEMO_INSTANCE,
+          apiTokenInstance: DEMO_TOKEN,
         }),
       );
+      window.localStorage.setItem(SEEDED_KEY, '1');
     }
   } catch (error) {
     /* Private mode: the login screen is still usable. */
   }
 
   // --- demo badge ---------------------------------------------------------
+  // Плашка объясняет, что происходит: в демо-режиме отвечает заглушка, а для
+  // проверки своего инстанса нужно выйти и войти с реальными ключами.
   function addBadge() {
     if (document.querySelector('.mock-stand-badge')) return;
 
     var style = document.createElement('style');
     style.textContent =
       '.mock-stand-badge{position:fixed;left:12px;bottom:12px;z-index:9999;' +
-      'display:inline-block;max-width:calc(100vw - 24px);box-sizing:border-box;' +
-      'padding:6px 10px;border-radius:8px;text-decoration:none;white-space:nowrap;' +
-      'overflow:hidden;text-overflow:ellipsis;' +
-      'background:rgba(17,17,17,.72);color:#fff;' +
+      'display:flex;flex-direction:column;gap:2px;max-width:calc(100vw - 24px);' +
+      'box-sizing:border-box;padding:7px 11px;border-radius:8px;text-decoration:none;' +
+      'background:rgba(17,17,17,.76);color:#fff;' +
       'font:12px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;' +
       'box-shadow:0 2px 8px rgba(0,0,0,.28);backdrop-filter:blur(4px);}' +
-      '.mock-stand-badge:hover{background:rgba(17,17,17,.86);}' +
-      '@media (max-width:520px){.mock-stand-badge{font-size:11px;padding:5px 8px;}}';
+      '.mock-stand-badge:hover{background:rgba(17,17,17,.9);}' +
+      '.mock-stand-badge__hint{opacity:.72;font-size:11px;}' +
+      '@media (max-width:520px){.mock-stand-badge{font-size:11px;padding:6px 9px;}' +
+      '.mock-stand-badge__hint{font-size:10px;}}';
     (document.head || document.documentElement).appendChild(style);
 
     var badge = document.createElement('a');
@@ -264,7 +294,16 @@
     badge.href = 'https://sergeythrees.github.io/#/employers/tasks/green-api';
     badge.target = '_blank';
     badge.rel = 'noopener';
-    badge.textContent = 'Демо-стенд · бэкенд GREEN-API замокан';
+
+    var title = document.createElement('span');
+    title.textContent = 'Демо-режим: отвечает заглушка GREEN-API';
+
+    var hint = document.createElement('span');
+    hint.className = 'mock-stand-badge__hint';
+    hint.textContent = 'Свой инстанс: «Выйти» в меню и войти со своими ключами';
+
+    badge.appendChild(title);
+    badge.appendChild(hint);
 
     var host = document.body || document.documentElement;
     if (host) host.appendChild(badge);
