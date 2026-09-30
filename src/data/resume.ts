@@ -24,7 +24,7 @@ const languages: Resume['languages'] = [
 
 export const resumeRu: Resume = {
   name: 'Сергей Степаненко',
-  title: 'Senior Frontend Developer · UX Engineer · Разработчик · AI-автоматизация · Telegram Mini Apps · React',
+  title: 'Frontend Developer · UX Engineer · Разработчик · AI-автоматизация · Telegram Mini Apps · React',
   summary:
     'Фронтенд-разработчик с опытом с 2017 года. Специализируюсь на визуальных редакторах: ' +
     'спроектировал WYSIWYG-редактор форм FormEngine и провёл редизайн конструктора ' +
@@ -40,7 +40,7 @@ export const resumeRu: Resume = {
 
   experience: [
     {
-      position: 'Senior Frontend Dev & UX Engineer',
+      position: 'Frontend Dev & UX Engineer',
       company: 'OptimaJet',
       period: '08/2020 — 03/2026',
       location: 'Москва, удалённо',
@@ -56,7 +56,7 @@ export const resumeRu: Resume = {
       ],
     },
     {
-      position: 'Senior Frontend Developer',
+      position: 'Frontend Developer',
       company: 'InferStat',
       period: '01/2019 — 08/2020',
       location: 'Москва',
@@ -142,7 +142,7 @@ export const resumeRu: Resume = {
 
 export const resumeEn: Resume = {
   name: 'Sergei Stepanenko',
-  title: 'Senior Frontend Developer & UX Engineer',
+  title: 'Frontend Developer & UX Engineer',
   summary:
     'Frontend developer with experience since 2017. Focused on visual editors: architected the ' +
     'FormEngine WYSIWYG form editor and redesigned the WorkflowEngine BPMN diagram builder. ' +
@@ -157,7 +157,7 @@ export const resumeEn: Resume = {
 
   experience: [
     {
-      position: 'Senior Frontend Dev & UX Engineer',
+      position: 'Frontend Dev & UX Engineer',
       company: 'OptimaJet',
       period: '08/2020 — 03/2026',
       location: 'Moscow, Russia (Remote)',
@@ -172,7 +172,7 @@ export const resumeEn: Resume = {
       ],
     },
     {
-      position: 'Senior Frontend Developer',
+      position: 'Frontend Developer',
       company: 'InferStat',
       period: '01/2019 — 08/2020',
       location: 'Moscow, Russia',
