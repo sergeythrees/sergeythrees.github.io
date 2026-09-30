@@ -245,28 +245,83 @@
   // Демо-ключи подставляем один раз (флаг SEEDED_KEY) и только если в
   // localStorage ещё ничего нет. После «Выйти» и входа со своими ключами
   // перезагрузка страницы оставляет посетителя в его инстансе.
+  // --- стартовое состояние -------------------------------------------------
+  // Демо-ключи НЕ подставляем: стенд должен открываться на штатном экране
+  // авторизации, а демо-вход посетитель запускает кнопкой ниже. Единственное,
+  // что здесь делаем, — убираем демо-ключи, оставшиеся от прежней версии
+  // стенда. Свои ключи посетителя не трогаем никогда.
   try {
-    var existing = window.localStorage.getItem(STORAGE_KEY);
-    var seeded = window.localStorage.getItem(SEEDED_KEY) === '1';
-    if ((existing === null || existing === '') && !seeded) {
-      // Drop the key an earlier version of this mock left under the old name.
-      try {
-        window.localStorage.removeItem(LEGACY_STORAGE_KEY);
-      } catch (legacyError) {
-        /* ignore */
-      }
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          apiUrl: DEMO_API_URL,
-          idInstance: DEMO_INSTANCE,
-          apiTokenInstance: DEMO_TOKEN,
-        }),
-      );
-      window.localStorage.setItem(SEEDED_KEY, '1');
+    var storedRaw = window.localStorage.getItem(STORAGE_KEY);
+    var stored = storedRaw ? JSON.parse(storedRaw) : null;
+    if (
+      stored &&
+      stored.idInstance === DEMO_INSTANCE &&
+      stored.apiTokenInstance === DEMO_TOKEN
+    ) {
+      window.localStorage.removeItem(STORAGE_KEY);
     }
+    window.localStorage.removeItem(SEEDED_KEY);
+    window.localStorage.removeItem(LEGACY_STORAGE_KEY);
   } catch (error) {
-    /* Private mode: the login screen is still usable. */
+    /* Приватный режим: экран входа всё равно работает. */
+  }
+
+  // --- кнопка быстрого демо-входа ------------------------------------------
+  // Живёт на штатном экране авторизации, под строкой «Чат на GREEN-API».
+  // Приложение не переписываем: кнопка добавляется в уже отрисованную форму,
+  // заполняет поля демо-ключами и отправляет её.
+  var DEMO_BUTTON_CLASS = 'stand-demo-login';
+
+  /** Заполняет поле так, как это делает пользователь (React слушает input). */
+  function fillField(selector, value) {
+    var field = document.querySelector(selector);
+    if (!field) return false;
+    var proto =
+      field.tagName === 'TEXTAREA'
+        ? window.HTMLTextAreaElement.prototype
+        : window.HTMLInputElement.prototype;
+    var setter = Object.getOwnPropertyDescriptor(proto, 'value').set;
+    setter.call(field, value);
+    field.dispatchEvent(new Event('input', { bubbles: true }));
+    return true;
+  }
+
+  /** Подставляет демо-ключи и отправляет форму входа. */
+  function submitDemoLogin() {
+    var form = document.querySelector('form.login__card');
+    if (!form) return;
+
+    fillField('#login-api-url', DEMO_API_URL);
+    fillField('#login-id-instance', DEMO_INSTANCE);
+    fillField('#login-api-token', DEMO_TOKEN);
+
+    // React применяет состояние асинхронно, поэтому отправляем форму следом.
+    window.setTimeout(function () {
+      if (typeof form.requestSubmit === 'function') form.requestSubmit();
+      else form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    }, 0);
+  }
+
+  function injectDemoButton() {
+    var brand = document.querySelector('.login__brand');
+    if (!brand || !brand.parentNode) return;
+    if (document.querySelector('.' + DEMO_BUTTON_CLASS)) return;
+
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = DEMO_BUTTON_CLASS;
+    button.textContent = 'Быстрый демо-вход';
+    button.addEventListener('click', submitDemoLogin);
+
+    brand.parentNode.insertBefore(button, brand.nextSibling);
+  }
+
+  // Экран входа появляется не только при старте, но и после «Выйти»,
+  // поэтому следим за разметкой, а не делаем это один раз.
+  function watchLoginScreen() {
+    injectDemoButton();
+    var observer = new MutationObserver(injectDemoButton);
+    observer.observe(document.documentElement, { childList: true, subtree: true });
   }
 
   // --- demo badge ---------------------------------------------------------
@@ -286,7 +341,15 @@
       '.mock-stand-badge:hover{background:rgba(17,17,17,.9);}' +
       '.mock-stand-badge__hint{opacity:.72;font-size:11px;}' +
       '@media (max-width:520px){.mock-stand-badge{font-size:11px;padding:6px 9px;}' +
-      '.mock-stand-badge__hint{font-size:10px;}}';
+      '.mock-stand-badge__hint{font-size:10px;}}' +
+      // Кнопка демо-входа: нейтральные цвета, чтобы подходила и светлой, и
+      // тёмной теме приложения (она следует за системной).
+      '.stand-demo-login{display:block;width:100%;box-sizing:border-box;' +
+      'margin:0 0 14px;padding:10px 12px;border:1px dashed currentColor;border-radius:10px;' +
+      'background:transparent;color:inherit;opacity:.75;cursor:pointer;' +
+      'font:inherit;font-size:14px;line-height:1.2;}' +
+      '.stand-demo-login:hover{opacity:1;background:rgba(128,128,128,.12);}' +
+      '.stand-demo-login:focus-visible{outline:2px solid currentColor;outline-offset:2px;}';
     (document.head || document.documentElement).appendChild(style);
 
     var badge = document.createElement('a');
@@ -300,7 +363,7 @@
 
     var hint = document.createElement('span');
     hint.className = 'mock-stand-badge__hint';
-    hint.textContent = 'Свой инстанс: «Выйти» в меню и войти со своими ключами';
+    hint.textContent = 'Демо-вход — кнопкой на экране входа, либо свои ключи GREEN-API';
 
     badge.appendChild(title);
     badge.appendChild(hint);
@@ -310,8 +373,12 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addBadge);
+    document.addEventListener('DOMContentLoaded', function () {
+      addBadge();
+      watchLoginScreen();
+    });
   } else {
     addBadge();
+    watchLoginScreen();
   }
 })();

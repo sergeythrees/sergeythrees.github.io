@@ -343,11 +343,11 @@ export const contentEn: Content = {
       ],
       appUrl: 'demos/green-api/',
       runNote:
-        'The stand opens right here: by default the GREEN-API backend is replaced with a stub, so ' +
-        'you can see sign-in, creating a chat, sending a message and the automatic reply. To try ' +
-        'the real API, use “Log out” in the menu and sign in with your own idInstance and ' +
-        'apiTokenInstance — requests then go straight to GREEN-API. To run it locally, start from ' +
-        'the repository root, Node 22.12+.',
+        'The stand opens right here on the app’s own sign-in screen: the “Quick demo sign-in” ' +
+        'button fills in demo credentials and shows the chat at once — creating a dialog, ' +
+        'sending a message and the automatic reply. To try the real API, sign in with your own ' +
+        'idInstance and apiTokenInstance — requests then go straight to GREEN-API. To run it ' +
+        'locally, start from the repository root, Node 22.12+.',
       runCommands: ['npm install', 'npm run dev:telegram'],
       details: [
         'The key part of the assignment was working with a third-party API strictly by the documentation: ' +
