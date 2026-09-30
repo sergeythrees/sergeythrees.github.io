@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button, Col, Row } from 'antd';
-import { ExperimentOutlined, MailOutlined } from '@ant-design/icons';
+import { IdcardOutlined, MailOutlined } from '@ant-design/icons';
 import { useLocale } from '../i18n/LocaleProvider';
 import PageHeader from '../components/PageHeader';
 import ProjectCard from '../components/ProjectCard';
@@ -10,13 +10,13 @@ export default function TasksPage() {
 
   return (
     <>
-      <PageHeader eyebrow={t.tasks.eyebrow} title={t.tasks.title} subtitle={t.tasks.subtitle} />
+      <PageHeader title={t.tasks.title} subtitle={t.tasks.subtitle} />
 
       {/* Задания показываем той же карточкой, что и проекты: kind меняет бейдж и маршрут. */}
       <section className="section">
         <Row gutter={[20, 20]}>
           {content.tasks.map((task) => (
-            <Col key={task.id} xs={24} sm={12} xl={8}>
+            <Col key={task.id} xs={24} md={12}>
               <ProjectCard project={task} kind="task" />
             </Col>
           ))}
@@ -38,7 +38,7 @@ export default function TasksPage() {
               {content.employers.cta.contact}
             </Button>
             <Link to="/employers">
-              <Button icon={<ExperimentOutlined />}>{t.nav.employers}</Button>
+              <Button icon={<IdcardOutlined />}>{t.nav.employers}</Button>
             </Link>
           </div>
         </div>

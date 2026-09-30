@@ -14,6 +14,7 @@ import {
 import type { ProjectStatusType } from '../data/types';
 import { useLocale } from '../i18n/LocaleProvider';
 import { useThemeMode } from '../theme/ThemeProvider';
+import { assetUrl } from './ScreenshotGallery';
 
 const PROJECTS_KEY = 'projects';
 const EMPLOYERS_KEY = 'employers';
@@ -138,13 +139,7 @@ export default function SideNav({ collapsed, onNavigate }: SideNavProps) {
   return (
     <nav className="sidenav">
       <div className="sidenav__brand">
-        <span className="sidenav__avatar" aria-hidden="true">
-          {content.site.name
-            .split(/\s+/)
-            .slice(0, 2)
-            .map((part) => part[0]?.toUpperCase() ?? '')
-            .join('')}
-        </span>
+        <img className="sidenav__avatar" src={assetUrl('photo.jpg')} alt="" width={32} height={32} />
         {collapsed ? null : (
           <span className="sidenav__identity">
             <span className="sidenav__name">{content.site.name}</span>

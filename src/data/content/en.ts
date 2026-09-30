@@ -6,11 +6,11 @@ export const contentEn: Content = {
     name: 'Sergey Stepanenko',
     handle: '@sergeythrees',
     role: 'Developer · AI automation · Telegram Mini Apps · React',
-    headline: 'I ship working applications, not demos.',
+    headline: 'I build frontends and see my own projects through to launch.',
     intro:
-      'I build products that live their own life: form engines on React, ' +
-      'Telegram Mini Apps with TON settlements, AI bots and browser agents. ' +
-      'Every project below comes with source code, tests and a clear way to run it.',
+      'I have been doing frontend since 2017. These are my own projects: a form builder for React, ' +
+      'a Telegram Mini App with a TON deposit, a DeepSeek-powered bot and a browser agent that ' +
+      'applies for jobs. Each one has source code and instructions for running it.',
     email: 'sergeythrees@gmail.com',
     location: 'Moscow · remote',
     links: [
@@ -44,21 +44,19 @@ export const contentEn: Content = {
       },
     ],
     principles: [
-      'Working code instead of a demo: every project can be run and checked.',
-      'Tests are part of the project, not a separate task for later.',
-      'A one-command startup, and an honest note when that was not possible.',
-      'Minimal dependencies and infrastructure — only what the task actually needs.',
+      'A project should run on someone else’s machine, not just mine.',
+      'I write tests along with the code.',
+      'One command to start. If that didn’t work out, the README says what to do by hand.',
+      'I add a dependency only when I can’t do without it.',
     ],
     about: [
-      'I build products that live their own life: interfaces, the server side and the ' +
-        'automation around them. I usually start by framing the whole task and building ' +
-        'a minimally working version, then growing it.',
-      'Startup and maintenance get separate attention: a project without run commands, ' +
-        'tests and a note on what already works and what is still in progress counts ' +
-        'as unfinished.',
-      'Before — frontend in product teams: WYSIWYG form editors, a BPMN designer, ' +
-        'financial analytics, e-learning. Now — my own products and automation at the ' +
-        'intersection of AI and the browser.',
+      'I like building the whole product: the interface, the server and the automation ' +
+        'around them. I start with the simplest version that works and build from there.',
+      'If a project has no run commands, no tests and no honest list of what works and what ' +
+        'doesn’t yet, I don’t consider it finished.',
+      'Before this I did frontend in product teams: a form editor, a BPMN designer, financial ' +
+        'analytics, e-learning. These days I work on my own products and on automation with ' +
+        'LLMs and the browser.',
     ],
   },
 
@@ -66,11 +64,11 @@ export const contentEn: Content = {
     {
       id: 'fe',
       name: 'FormEngine',
-      tagline: 'JSON forms for React: designer, validation, conditional logic',
+      tagline: 'React forms from a JSON schema: designer, validation, conditional logic',
       summary:
-        'A monorepo of React libraries and applications where a form is described in JSON, ' +
-        'and the library takes over state, validation, events, conditional logic and localization. ' +
-        'A fork of Optimajet with its own improvements and build.',
+        'A monorepo of React libraries and apps. You describe a form in JSON, and the library ' +
+        'handles state, validation, events, conditional display and localization. ' +
+        'It’s a fork of Optimajet FormEngine with my changes and my own build.',
       status: 'Active development',
       statusType: 'success',
       facts: [
@@ -80,7 +78,7 @@ export const contentEn: Content = {
       ],
       features: [
         'Drag-and-drop form designer on react-dnd and Monaco Editor.',
-        'Ready-made UI kits: Ant Design, MUI, Mantine, RSuite — one form, different shells.',
+        'Component sets for Ant Design, MUI, Mantine and RSuite: one schema works with any of them.',
         'Validation with Zod, computed fields and conditional display logic.',
         'Form localization with Fluent.js, data stored in IndexedDB.',
         'Monorepo on npm workspaces: Vite build, IIFE bundles via Rollup.',
@@ -111,15 +109,14 @@ export const contentEn: Content = {
       ],
       appUrl: 'https://formbuilder.formengine.io',
       runNote:
-        'The fork builds locally from the src/ directory: npm install, then npm run start.',
+        'The fork is built from the src/ directory.',
       runCommands: ['cd src', 'npm install', 'npm run start'],
       details: [
-        'FormEngine solves one problem: a form is data, not code. The description lives in JSON, ' +
-          'the renderer and the state controller come from the library, and the application gets a ready form.',
-        'Ready-made UI library kits are supported, so the same JSON schema ' +
-          'renders inside RSuite and inside Ant Design without rewriting the markup.',
-        'The project is used as a base for internal tools: a form builder, ' +
-          'a viewer and ready-made examples for different licenses.',
+        'The core idea: a form is data. The schema is stored as JSON, the libraries provide the ' +
+          'renderer and state, and the app just plugs in the finished form.',
+        'The same schema renders in RSuite and in Ant Design with no markup changes.',
+        'Internal tools are built on top of it: a form builder, a viewer and examples for ' +
+          'different licenses.',
       ],
       screenshots: [
         { src: 'projects/fe/01-builder.webp', caption: 'Designer: dragging fields onto the canvas' },
@@ -132,10 +129,11 @@ export const contentEn: Content = {
     {
       id: 'commitment_tma',
       name: 'My Contract',
-      tagline: 'Telegram Mini App: commitments with a deposit in TON escrow',
+      tagline: 'Telegram Mini App: a promise to yourself backed by a TON escrow deposit',
       summary:
-        'A contract with yourself: a goal, a USDT deposit in TON escrow and cashback for every completed day. ' +
-        'Porting an iOS app (SwiftUI, HealthKit, YooKassa) to a Telegram Mini App and the TON blockchain.',
+        'A contract with yourself: set a goal, put a USDT deposit into escrow on TON and get cashback ' +
+        'for every day you follow through. It’s a port of an iOS app (SwiftUI, HealthKit, YooKassa) ' +
+        'to Telegram and TON.',
       status: 'TON testnet',
       statusType: 'processing',
       facts: [
@@ -149,7 +147,7 @@ export const contentEn: Content = {
         'Cashback accrues for every completed day, with history in the profile.',
         'Contract cancellation with a deposit refund, including cancellation via TON Wallet.',
         'Steps and activity are pulled from Health Connect (Android) and HealthKit (iOS).',
-        'Full stack: backend on Fastify and grammY, client on React 18 and TON Connect.',
+        'Backend on Fastify and grammY, client on React 18 and TON Connect.',
       ],
       stack: [
         'TypeScript',
@@ -167,16 +165,15 @@ export const contentEn: Content = {
         { label: 'Source code', href: 'https://github.com/sergeythrees/commitment_tma' },
       ],
       runNote:
-        'There is no public stand yet: the backend comes up on :3000 and serves the built Mini App itself, ' +
-        'exposed to the outside through a cloudflared tunnel. Settlements run in TON testnet.',
+        'No public demo yet. The backend runs on :3000 and serves the built Mini App itself; ' +
+        'a cloudflared tunnel makes it reachable from outside. Payments go through TON testnet.',
       runCommands: ['npm install', 'npm run build', 'npm start'],
       details: [
-        'The idea is simple: money makes a commitment real. While the deposit sits in escrow, ' +
-          'the agreement is confirmed cryptographically, not just by word.',
-        'The smart contract is written in Tact and verified in the TON emulator; the full payment cycle ' +
-          'is covered by Playwright e2e tests with golden screen snapshots.',
-        'The Fastify backend serves the Mini App static files, state is stored in node:sqlite, ' +
-          'and the bot logic runs on grammY.',
+        'The idea is simple: a promise is easier to keep when your own money is on the line. ' +
+          'While the contract is active, the deposit stays in escrow.',
+        'The Tact smart contract is tested in the TON emulator. The whole payment flow is covered ' +
+          'by Playwright e2e tests with screenshot comparison.',
+        'Fastify serves the Mini App static files, data lives in node:sqlite, and the bot is built on grammY.',
       ],
       screenshots: [
         { src: 'projects/commitment_tma/01-onboarding.webp', caption: 'Onboarding' },
@@ -196,10 +193,11 @@ export const contentEn: Content = {
     {
       id: 'ai_mirror',
       name: 'AI Mirror',
-      tagline: 'Telegram bot: a digital psychological portrait using the 360° method',
+      tagline: 'Telegram bot: a psychological portrait using the 360° method',
       summary:
-        'Daily reflection plus anonymous feedback from people close to you. DeepSeek assembles ' +
-        'a blunt report with no sugar-coating: superpower, blind spots, self-deception and growth areas.',
+        'You answer questions about yourself every day, and people close to you answer about you ' +
+        'anonymously. DeepSeek turns it into a blunt report: superpower, blind spots, self-deception ' +
+        'and growth areas.',
       status: 'Runs locally',
       statusType: 'default',
       facts: [
@@ -210,10 +208,10 @@ export const contentEn: Content = {
       features: [
         'Daily questions and reflection, with answer history in SQLite.',
         'Anonymous answers from people close to you: the user never sees who replied.',
-        'A blunt report from the model: superpower, blind spots, self-deception, growth areas.',
-        'Works without AI_API_KEY too — it falls back to a demo mode.',
-        'A local aiohttp web dashboard for browsing data and reports.',
-        'A Docker image and make targets for quick deployment.',
+        'An unsoftened report from the model: superpower, blind spots, self-deception, growth areas.',
+        'Without AI_API_KEY the bot doesn’t crash, it switches to a demo mode.',
+        'A local aiohttp dashboard for browsing data and reports.',
+        'A Docker image and make targets for deployment.',
       ],
       stack: [
         'Python 3.10+',
@@ -228,16 +226,14 @@ export const contentEn: Content = {
       ],
       links: [{ label: 'Source code', href: 'https://github.com/sergeythrees/ai_mirror' }],
       runNote:
-        'The dashboard comes up locally on 127.0.0.1:8787. Planned: a Telegram Mini App ' +
-        'instead of the bot.',
+        'The dashboard runs on 127.0.0.1:8787. Later I want to replace the bot with a Telegram Mini App.',
       runCommands: ['make docker-build', 'docker run --rm -p 8787:8787 ai-mirror'],
       details: [
-        'The 360° method inside a messenger: you answer about yourself daily, while people close to you ' +
-          'answer anonymously about you. The AI cross-references both streams and assembles a report.',
-        'The tone of the report is deliberately blunt — without that, the tool turns into pleasant reading ' +
-          'and stops working.',
-        'The stack is minimal: aiogram for Telegram, SQLite for data, APScheduler for the daily ' +
-          'questions, aiohttp for the local dashboard.',
+        'The 360° method inside a messenger: you answer about yourself every day, people close to you ' +
+          'answer about you anonymously, and the model compares the two and writes a report.',
+        'The blunt tone is on purpose. A softened report is nice to read but doesn’t help much.',
+        'The stack is small: aiogram for Telegram, SQLite for data, APScheduler for the daily ' +
+          'questions, aiohttp for the dashboard.',
       ],
       screenshots: [
         {
@@ -254,10 +250,11 @@ export const contentEn: Content = {
     {
       id: 'job_applier',
       name: 'Universal Job Applier',
-      tagline: 'A personal job-search autopilot with an AI browser agent',
+      tagline: 'A job-search autopilot: an AI agent applies for you in the browser',
       summary:
-        'A vacancy scraper plus an AI agent in a real browser: it prepares and submits applications ' +
-        'on its own, while the human confirms only irreversible steps — sending, a recruiter reply, an offer.',
+        'Collects job listings and applies to them through an AI agent running in a regular Chrome. ' +
+        'You only confirm the steps that can’t be undone: sending an application, replying to a ' +
+        'recruiter, accepting an offer.',
       status: 'Runs locally',
       statusType: 'default',
       facts: [
@@ -266,27 +263,26 @@ export const contentEn: Content = {
         { label: 'Storage', value: 'JSON / YAML, no DB' },
       ],
       features: [
-        'Vacancy collection: a custom scraper plus an Apify actor for the sources.',
-        'A match score between a vacancy and the profile before applying.',
-        'A browser agent on browser-use and Playwright, connecting to Chrome over CDP.',
-        'Human confirmation only for irreversible actions: sending, reply, offer.',
-        'A local dashboard on stdlib http.server — full control with no external services.',
-        'Modules for preparing applications, answering interview questions and handling objections.',
+        'Listings come from a custom scraper and an Apify actor.',
+        'Each listing is matched against the profile before applying.',
+        'The agent runs on browser-use and Playwright and connects to Chrome over CDP.',
+        'Only irreversible actions need confirmation: sending, replying, accepting an offer.',
+        'A local dashboard on stdlib http.server, no external services needed.',
+        'Separate modules draft applications, interview answers and responses to objections.',
       ],
       stack: ['Python 3.12', 'browser-use', 'Playwright', 'Chrome CDP', 'DeepSeek API', 'Apify', 'uv'],
       links: [
         { label: 'Source code', href: 'https://github.com/sergeythrees/universal_job_applier' },
       ],
       runNote:
-        'The dashboard comes up locally on 127.0.0.1:8787; Chrome is started by a separate script.',
+        'The dashboard runs on 127.0.0.1:8787; Chrome is started by a separate script.',
       runCommands: ['bash setup_and_run.sh', 'python3 dashboard.py --port 8787'],
       details: [
-        'The idea: application routine eats hours, while the decision is still made by a human. ' +
-          'The agent does the monotonous part and stops where an action becomes irreversible.',
-        'The browser is not emulated inside a desktop app — it connects to a live Chrome over CDP, ' +
-          'so authorization sessions stay valid.',
-        'No external database: state lives in JSON and YAML next to the code, which suits a ' +
-          'personal tool and needs no maintenance.',
+        'Applying for jobs takes hours, even though you make the decisions yourself anyway. ' +
+          'The agent handles the routine and stops before every step that can’t be undone.',
+        'The agent works in a real Chrome over CDP, so you stay logged in on job sites.',
+        'There’s no database: state lives in JSON and YAML next to the code. That’s enough for a ' +
+          'personal tool, and there’s nothing to maintain.',
       ],
       screenshots: [
         {
@@ -303,13 +299,12 @@ export const contentEn: Content = {
     {
       id: 'green-api',
       name: 'Telegram chat client on GREEN-API',
-      tagline: 'A web chat client on top of an HTTP API',
+      tagline: 'A web chat client on an HTTP API',
       badge: 'Test assignment',
       summary:
-        'A web chat client for Telegram on the GREEN-API HTTP API: sign-in with instance credentials, ' +
-        'a chat by phone number or @username, sending messages via SendMessage and receiving replies ' +
-        'through ReceiveNotification long polling. The UI is built on the official Telegram UI Kit ' +
-        'and follows the look of Telegram Web.',
+        'A Telegram web client on the GREEN-API HTTP API. Sign in with instance credentials, start ' +
+        'a chat by phone number, send messages and get replies via long polling. The UI is built ' +
+        'on the official Telegram UI Kit.',
       status: 'Completed',
       statusType: 'success',
       facts: [
@@ -320,11 +315,12 @@ export const contentEn: Content = {
       features: [
         'Sign-in with apiUrl, idInstance and apiTokenInstance, with instance state validation.',
         'Creating a chat by phone number or @username via CheckAccount → chatId.',
-        'Sending text with an optimistic message that is reconciled against the server idMessage.',
-        'Long polling with ReceiveNotification / DeleteNotification and a pause on errors.',
+        'A sent message shows up in the chat right away and is then matched to the server’s idMessage.',
+        'Long polling via ReceiveNotification / DeleteNotification, with a pause on errors.',
         'Two-pane UI: chat list, search, bubbles, composer, dark theme.',
-        'The palette and geometry come from the real Telegram Web theme, not eyeballed.',
-        'A screenshot harness on raw Chrome DevTools Protocol with no external dependencies.',
+        'Colors and sizes are taken from the Telegram Web theme.',
+        'Screenshots are taken by a script on the Chrome DevTools Protocol with no third-party dependencies.',
+        'With your own idInstance and apiTokenInstance, the stand talks to the real GREEN-API.',
       ],
       stack: [
         'TypeScript',
@@ -343,20 +339,18 @@ export const contentEn: Content = {
       ],
       appUrl: 'demos/green-api/',
       runNote:
-        'The stand opens right here on the app’s own sign-in screen: the “Quick demo sign-in” ' +
-        'button fills in demo credentials and shows the chat at once — creating a dialog, ' +
-        'sending a message and the automatic reply. To try the real API, sign in with your own ' +
-        'idInstance and apiTokenInstance — requests then go straight to GREEN-API. To run it ' +
-        'locally, start from the repository root, Node 22.12+.',
+        'The stand opens on the regular sign-in screen. The “Quick demo sign-in” button fills in ' +
+        'demo credentials and takes you straight to the chat, where you can start a dialog, send ' +
+        'a message and get an automatic reply. To try the real API, sign in with your own ' +
+        'idInstance and apiTokenInstance. To run it locally, use the repository root and Node 22.12+.',
       runCommands: ['npm install', 'npm run dev:telegram'],
       details: [
-        'The key part of the assignment was working with a third-party API strictly by the documentation: ' +
-          'the whole transport lives in one typed client, and the method contracts are written out and checked against the docs.',
-        'The design was not eyeballed: token values and the palette were taken from the build of the real ' +
-          'Telegram Web, so the client looks like a familiar messenger.',
-        'The scope was limited to text messages — media, groups and reactions were out of it, and that is stated explicitly.',
-        'The demo stand is a separate build with an HTTP interceptor: it answers GREEN-API methods with ' +
-          'prepared data, including long polling and an automatic reply from the peer.',
+        'The main point of the assignment was working with someone else’s API strictly by the docs. ' +
+          'All network code sits in one typed client, and the method contracts are checked against the documentation.',
+        'I took the colors and sizes from the Telegram Web build, so the client looks like the messenger people already know.',
+        'Only text messages were in scope. I didn’t do media, groups or reactions, and that’s stated up front.',
+        'The demo stand is a separate build with a stub. It intercepts HTTP requests and answers GREEN-API ' +
+          'methods with canned data, including long polling and an automatic reply.',
       ],
       screenshots: [
         { src: 'projects/green-api/01-login.webp', caption: 'Signing in with instance credentials' },
@@ -367,12 +361,11 @@ export const contentEn: Content = {
     {
       id: 'vanilla-video-feed',
       name: 'Vertical video feed',
-      tagline: 'A video feed in vanilla JS with no frameworks',
+      tagline: 'A short-video feed in plain JS',
       badge: 'Test assignment',
       summary:
-        'A short-video feed in pure JavaScript: scroll-snap, IntersectionObserver and ' +
-        'a single active player. On top of the base version — performance optimizations ' +
-        'plus a full set of tests and linters.',
+        'A short-video feed in plain JavaScript: scroll-snap, IntersectionObserver and one ' +
+        'active player. Beyond the brief, I added performance work, tests and linters.',
       status: 'Completed',
       statusType: 'success',
       facts: [
@@ -381,12 +374,12 @@ export const contentEn: Content = {
         { label: 'Checks', value: 'Vitest, Playwright, ESLint, Stylelint' },
       ],
       features: [
-        'Scroll-snap feed that switches a single active player.',
-        'IntersectionObserver decides what plays and what is paused.',
-        'DOM virtualization: distant cards are unloaded, no redundant rendering.',
-        'Video preload by distance to the viewport and deferred src assignment.',
-        'Keyboard controls and stopping the player when leaving the tab.',
-        'A custom Node server: video list from Google Drive, stream proxy, static files.',
+        'A scroll-snap feed where only one video plays at a time.',
+        'IntersectionObserver decides which video plays and which is paused.',
+        'DOM virtualization: cards far off screen are removed from the DOM.',
+        'Videos preload as they get close to the viewport, and src is set lazily.',
+        'Keyboard controls; playback stops when you leave the tab.',
+        'A small Node server: video list from Google Drive, a stream proxy, static files.',
       ],
       stack: ['Vanilla JS', 'ES modules', 'Node.js', 'HTML5', 'CSS3', 'Vitest', 'Playwright'],
       links: [
@@ -395,16 +388,14 @@ export const contentEn: Content = {
           href: 'https://github.com/sergeythrees/vanilla-video-feed',
         },
       ],
-      runNote: 'Run: npm start, the feed comes up on http://localhost:3000.',
+      runNote: 'After npm start the feed opens at http://localhost:3000.',
       runCommands: ['npm install', 'npm start'],
       details: [
-        'The assignment tested whether I can build something complex in vanilla JS: no frameworks, ' +
-          'no bundler and no ready-made video player libraries.',
-        'The main work was not the feed itself but performance: DOM virtualization, ' +
-          'distance-based preloading and deferred src assignment remove the main jank ' +
-          'during fast scrolling.',
-        'The server is written in bare Node: the video list comes from Google Drive, the stream ' +
-          'is served through a proxy, and static files are hand-rolled.',
+        'The rules: plain JS, no frameworks, no bundler, no ready-made video players.',
+        'Most of the time went into performance. DOM virtualization, distance-based preloading ' +
+          'and lazy src assignment got rid of the stutter during fast scrolling.',
+        'The server is bare Node: it gets the video list from Google Drive, proxies the stream ' +
+          'and serves static files itself.',
       ],
       screenshots: [
         { src: 'projects/vanilla-video-feed/01-feed.webp', caption: 'Video feed on desktop' },
@@ -416,22 +407,22 @@ export const contentEn: Content = {
   employers: {
     eyebrow: 'For employers',
     title: 'For employers',
-    subtitle: 'Resume, experience and open source — everything needed for a decision.',
+    subtitle: 'Résumé, test assignments and contacts.',
     intro:
-      'I collected everything usually asked at the first stage: a short resume, completed ' +
-      'test assignments with source code, and a direct contact. Nothing extra — facts and links to code.',
+      'What people usually ask for at the first stage: a résumé, completed test assignments ' +
+      'with source code, and contacts.',
     highlights: [
       {
-        title: '8 years of frontend in production',
+        title: '8 years in frontend',
         text: 'From Flash players to a WYSIWYG form editor and a BPMN designer.',
       },
       {
-        title: 'Own products',
-        text: 'A form engine, a Telegram Mini App with TON settlements, AI bots and browser agents.',
+        title: 'My own projects',
+        text: 'A form builder, a Telegram Mini App with TON payments, an LLM bot and a browser agent.',
       },
       {
         title: 'Open source',
-        text: 'Project code is on GitHub, and the assignments come with tests and run instructions.',
+        text: 'The projects are on GitHub, and the test assignments come with tests and run instructions.',
       },
     ],
     cta: {

@@ -31,7 +31,7 @@ export const en: Dictionary = {
   project: {
     openApp: 'Open the app',
     localOnly: 'Runs locally only',
-    localOnlyNote: 'There is no public demo yet — see below on how to run it locally.',
+    localOnlyNote: 'No public demo yet. How to run it locally is described below.',
     prev: '← Previous',
     next: 'Next →',
     notFound: 'Project not found',
@@ -45,13 +45,13 @@ export const en: Dictionary = {
     projectsTitle: 'Projects',
     projectsAll: 'All projects',
     stackTitle: 'Stack',
-    ctaTitle: 'Need an extension or a new system?',
-    ctaText: 'Open to tasks, questions about the projects and discussions about working together.',
+    ctaTitle: 'Have something in mind?',
+    ctaText: 'Write to me about a job, a project or a question about my code.',
   },
   projects: {
     eyebrow: 'Section',
     title: 'Projects',
-    subtitle: 'Applications you can actually run and check.',
+    subtitle: 'My projects, with source code and run instructions.',
   },
   about: {
     eyebrow: 'About',
@@ -62,32 +62,32 @@ export const en: Dictionary = {
   contacts: {
     eyebrow: 'Contact',
     title: 'Contacts',
-    subtitle: 'Open to tasks, questions about the projects and discussions about working together.',
+    subtitle: 'Write to me about a job, a project or a question about my code.',
     quickLabel: 'Quick',
-    quickText: 'Copy the address without leaving the page',
+    quickText: 'Copy the address without opening a mail app',
     more: 'More code and projects on',
-    projectsHint: 'Local projects are launched using the instructions on the project page.',
+    projectsHint: 'Each project page explains how to run it locally.',
     seeProjects: 'See projects',
   },
   employers: {
     eyebrow: 'For employers',
     title: 'For employers',
-    subtitle: 'Résumé, experience and open source — everything you need to decide.',
+    subtitle: 'Résumé, test assignments and contacts.',
     intro:
-      'Everything usually asked at the first stage: a concise résumé, completed test assignments with their source code, and a direct contact. No filler — facts and links to the code.',
-    highlightsTitle: 'Why take a look',
+      'What people usually ask for at the first stage: a résumé, completed test assignments with source code, and contacts.',
+    highlightsTitle: 'In short',
     highlights: [
       {
-        title: '8 years of production frontend',
+        title: '8 years in frontend',
         text: 'From Flash players to a WYSIWYG form editor and a BPMN diagram builder.',
       },
       {
-        title: 'Products of my own',
-        text: 'A form engine, a Telegram Mini App with TON payments, AI bots and browser agents.',
+        title: 'My own projects',
+        text: 'A form builder, a Telegram Mini App with TON payments, an LLM bot and a browser agent.',
       },
       {
         title: 'Open source',
-        text: 'The code lives on GitHub, every assignment comes with tests and a run guide.',
+        text: 'The projects are on GitHub, and the test assignments come with tests and run instructions.',
       },
     ],
     cta: {
@@ -96,9 +96,9 @@ export const en: Dictionary = {
       contact: 'Get in touch',
     },
     resumeTitle: 'Résumé',
-    resumeText: 'Experience, education, skills and work preferences in a readable layout.',
+    resumeText: 'Experience, education, skills and work preferences. PDF included.',
     tasksTitle: 'Test assignments',
-    tasksText: 'What I built as a qualification exercise: chat clients and a video feed.',
+    tasksText: 'A chat client on GREEN-API and a video feed in plain JS.',
   },
   resume: {
     download: 'Download PDF',
@@ -109,19 +109,19 @@ export const en: Dictionary = {
     projects: 'Projects',
     preferences: 'Work preferences',
     contacts: 'Contacts',
-    achievements: 'Key results',
+    achievements: 'Results',
     noPdf: 'The PDF version is coming soon',
   },
   tasks: {
     eyebrow: 'Section',
     title: 'Test assignments',
-    subtitle: 'Assignments I took as a qualification check. The stand and the source code are open.',
+    subtitle: 'Assignments from employers. The code is open, and you can try the chat client right on this site.',
     badge: 'Test assignment',
     openStand: 'Open the stand',
   },
   notFound: {
     title: 'Page not found',
-    text: 'There is no such page. Head back home or browse the projects.',
+    text: 'This page doesn’t exist. You can go back home or look at the projects.',
     cta: 'Back home',
   },
   ui: {

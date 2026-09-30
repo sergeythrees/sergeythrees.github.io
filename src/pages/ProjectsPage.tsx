@@ -10,15 +10,11 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow={t.projects.eyebrow}
-        title={t.projects.title}
-        subtitle={t.projects.subtitle}
-      />
+      <PageHeader title={t.projects.title} subtitle={t.projects.subtitle} />
 
       <Row gutter={[20, 20]}>
         {projects.map((project) => (
-          <Col key={project.id} xs={24} sm={12} xl={8}>
+          <Col key={project.id} xs={24} md={12}>
             <ProjectCard project={project} />
           </Col>
         ))}

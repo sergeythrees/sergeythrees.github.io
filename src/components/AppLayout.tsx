@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, Drawer, Dropdown, Layout, Tooltip, type MenuProps } from 'antd';
 import {
   GithubOutlined,
@@ -35,40 +35,57 @@ function useIsMobile(): boolean {
   return isMobile;
 }
 
-/** Заголовок шапки — по текущему маршруту. */
-function usePageTitle(): string {
+interface Crumb {
+  label: string;
+  to: string;
+}
+
+interface PageTitle {
+  title: string;
+  /** Родительские разделы — в шапке это ссылки перед названием страницы. */
+  parents: Crumb[];
+}
+
+/** Заголовок шапки и путь к странице — по текущему маршруту. */
+function usePageTitle(): PageTitle {
   const { pathname } = useLocation();
   const { content, t } = useLocale();
+  const projects: Crumb = { label: t.nav.projects, to: '/projects' };
+  const employers: Crumb = { label: t.nav.employers, to: '/employers' };
+  const tasks: Crumb = { label: t.nav.tasks, to: '/employers/tasks' };
 
   if (pathname === '/') {
-    return t.nav.home;
+    return { title: t.nav.home, parents: [] };
   }
   if (pathname === '/projects') {
-    return t.nav.projects;
+    return { title: t.nav.projects, parents: [] };
   }
   if (pathname.startsWith('/projects/')) {
     const id = decodeURIComponent(pathname.slice('/projects/'.length));
     const project = content.projects.find((entry) => entry.id === id);
-    return project?.name ?? t.notFound.title;
+    return { title: project?.name ?? t.notFound.title, parents: [projects] };
   }
   if (pathname === '/employers') {
-    return t.nav.employers;
+    return { title: t.nav.employers, parents: [] };
   }
   if (pathname.startsWith('/employers/resume')) {
-    return t.nav.resume;
+    return { title: t.nav.resume, parents: [employers] };
   }
-  if (pathname.startsWith('/employers/tasks')) {
-    const id = pathname.slice('/employers/tasks'.length).replace(/^\//, '');
-    const task = content.tasks.find((entry) => entry.id === decodeURIComponent(id));
-    return task?.name ?? t.nav.tasks;
+  if (pathname === '/employers/tasks') {
+    return { title: t.nav.tasks, parents: [employers] };
+  }
+  if (pathname.startsWith('/employers/tasks/')) {
+    const id = decodeURIComponent(pathname.slice('/employers/tasks/'.length));
+    const task = content.tasks.find((entry) => entry.id === id);
+    return { title: task?.name ?? t.notFound.title, parents: [employers, tasks] };
   }
   if (pathname === '/about') {
-    return t.nav.about;
+    return { title: t.nav.about, parents: [] };
   }
   if (pathname === '/contacts') {
-    return t.nav.contacts;
+    return { title: t.nav.contacts, parents: [] };
   }
-  return t.notFound.title;
+  return { title: t.notFound.title, parents: [] };
 }
 
 interface AppLayoutProps {
@@ -77,7 +94,7 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const isMobile = useIsMobile();
-  const pageTitle = usePageTitle();
+  const { title: pageTitle, parents } = usePageTitle();
   const { locale, content, t, setLocale } = useLocale();
   const { mode, toggleMode } = useThemeMode();
   const [collapsed, setCollapsed] = useState(false);
@@ -166,7 +183,19 @@ export default function AppLayout({ children }: AppLayoutProps) {
               onClick={handleToggle}
               aria-label={toggleLabel}
             />
-            <span className="app-header__title">{pageTitle}</span>
+            <nav className="app-header__title" aria-label="breadcrumb">
+              {parents.map((crumb) => (
+                <span key={crumb.to} className="app-header__parent">
+                  <Link to={crumb.to} className="app-header__crumb">
+                    {crumb.label}
+                  </Link>
+                  <span className="app-header__sep" aria-hidden="true">
+                    /
+                  </span>
+                </span>
+              ))}
+              <span className="app-header__current">{pageTitle}</span>
+            </nav>
           </div>
 
           <div className="app-header__right">
@@ -197,7 +226,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
               <Button
                 type="text"
                 className="control-btn"
-                icon={mode === 'dark' ? <MoonOutlined /> : <SunOutlined />}
+                // Иконка показывает, что будет после нажатия, как и подсказка.
+                icon={mode === 'dark' ? <SunOutlined /> : <MoonOutlined />}
                 onClick={toggleMode}
                 aria-label={t.ui.themeSwitchAria}
               />

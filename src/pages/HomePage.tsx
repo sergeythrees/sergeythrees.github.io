@@ -4,6 +4,7 @@ import { AppstoreOutlined, GithubOutlined, MailOutlined } from '@ant-design/icon
 import { useLocale, useT } from '../i18n/LocaleProvider';
 import ProjectCard from '../components/ProjectCard';
 import StackTags from '../components/StackTags';
+import RoleLine from '../components/RoleLine';
 import { assetUrl } from '../components/ScreenshotGallery';
 
 export default function HomePage() {
@@ -27,15 +28,18 @@ export default function HomePage() {
                 alt={site.name}
                 width={199}
                 height={199}
-                loading="lazy"
               />
             </figure>
           </Col>
           <Col xs={24} sm={16} md={20}>
             <h1 className="hero__name">{site.name}</h1>
-            <div className="hero__role">{site.role}</div>
+            <div className="hero__role">
+              <RoleLine role={site.role} />
+            </div>
           </Col>
         </Row>
+
+        <p className="hero__tagline">{site.headline}</p>
 
         <p className="hero__intro">{site.intro}</p>
 
@@ -61,7 +65,7 @@ export default function HomePage() {
 
         <Row gutter={[20, 20]}>
           {projects.map((project) => (
-            <Col key={project.id} xs={24} sm={12} xl={8}>
+            <Col key={project.id} xs={24} md={12}>
               <ProjectCard project={project} />
             </Col>
           ))}

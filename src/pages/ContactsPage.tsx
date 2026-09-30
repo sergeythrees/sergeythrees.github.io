@@ -26,7 +26,7 @@ export default function ContactsPage() {
 
   return (
     <>
-      <PageHeader eyebrow={t.contacts.eyebrow} title={t.contacts.title} subtitle={t.contacts.subtitle} />
+      <PageHeader title={t.contacts.title} subtitle={t.contacts.subtitle} />
 
       <section className="section">
         <Row gutter={[16, 16]}>
@@ -37,10 +37,20 @@ export default function ContactsPage() {
                 <div className="contact-card__value">{link.value}</div>
                 <div className="contact-card__actions">
                   {link.href.startsWith('mailto:') ? (
-                    // mailto не открываем в новой вкладке: часть браузеров показывает пустую.
-                    <Button type="primary" href={link.href} icon={<MailOutlined />}>
-                      {t.common.write}
-                    </Button>
+                    <>
+                      {/* mailto не открываем в новой вкладке: часть браузеров показывает пустую. */}
+                      <Button type="primary" href={link.href} icon={<MailOutlined />}>
+                        {t.common.write}
+                      </Button>
+                      <Button
+                        icon={<CopyOutlined />}
+                        onClick={() => {
+                          void copyEmail();
+                        }}
+                      >
+                        {t.common.copyEmail}
+                      </Button>
+                    </>
                   ) : (
                     <Button
                       type="primary"
@@ -56,23 +66,6 @@ export default function ContactsPage() {
               </Card>
             </Col>
           ))}
-
-          <Col xs={24} md={12}>
-            <Card variant="borderless" className="contact-card">
-              <div className="contact-card__label">{t.contacts.quickLabel}</div>
-              <div className="contact-card__value">{t.contacts.quickText}</div>
-              <div className="contact-card__actions">
-                <Button
-                  icon={<CopyOutlined />}
-                  onClick={() => {
-                    void copyEmail();
-                  }}
-                >
-                  {t.common.copyEmail}
-                </Button>
-              </div>
-            </Card>
-          </Col>
         </Row>
       </section>
 

@@ -1,6 +1,7 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Col, Row, Tooltip } from 'antd';
-import { ArrowLeftOutlined, ExportOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, CodeOutlined, ExportOutlined } from '@ant-design/icons';
 import type { Project } from '../data/types';
 import type { Dictionary } from '../i18n/dictionary/ru';
 import PageHeader from './PageHeader';
@@ -35,6 +36,7 @@ export default function CaseDetail({
   const showNav = prevNext.length > 1 && index >= 0;
   const prev = showNav ? prevNext[(index - 1 + prevNext.length) % prevNext.length] : undefined;
   const next = showNav ? prevNext[(index + 1) % prevNext.length] : undefined;
+  const runRef = useRef<HTMLElement>(null);
 
   return (
     <>
@@ -61,19 +63,21 @@ export default function CaseDetail({
               >
                 {openLabel ?? t.project.openApp}
               </Button>
-            ) : (
-              <Tooltip title={project.runNote ?? t.project.localOnly}>
-                <span className="tooltip-target">
-                  <Button size="large" disabled>
-                    {t.project.localOnly}
-                  </Button>
-                </span>
-              </Tooltip>
-            )}
+            ) : project.runCommands?.length ? (
+              // Публичного стенда нет: вместо выключенной кнопки ведём к инструкции запуска.
+              <Button
+                size="large"
+                icon={<CodeOutlined />}
+                onClick={() => runRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                {t.project.localOnly}
+              </Button>
+            ) : null}
 
             {project.links.map((link) => (
-              <div key={link.href} className="detail-actions__item">
+              <Tooltip key={link.href} title={link.hint}>
                 <Button
+                  size="large"
                   href={assetUrl(link.href)}
                   target="_blank"
                   rel="noreferrer noopener"
@@ -81,15 +85,13 @@ export default function CaseDetail({
                 >
                   {link.label}
                 </Button>
-                {link.hint ? <span className="detail-actions__hint">{link.hint}</span> : null}
-              </div>
+              </Tooltip>
             ))}
-            {!project.appUrl ? (
-              <p className="detail-actions__note">{t.project.localOnlyNote}</p>
-            ) : null}
           </div>
         }
       />
+
+      <p className="detail-summary">{project.summary}</p>
 
       <section className="section">
         <Row gutter={[16, 16]}>
@@ -122,7 +124,6 @@ export default function CaseDetail({
 
       <section className="section">
         <h2 className="section__title">{t.common.detailsTitle}</h2>
-        <p className="section__lead">{project.summary}</p>
         {project.details.map((paragraph) => (
           <p key={paragraph.slice(0, 32)} className="section__paragraph">
             {paragraph}
@@ -131,7 +132,7 @@ export default function CaseDetail({
       </section>
 
       {project.runCommands?.length ? (
-        <section className="section">
+        <section className="section" ref={runRef}>
           <h2 className="section__title">{t.common.runTitle}</h2>
           {project.runNote ? <p className="section__lead">{project.runNote}</p> : null}
           <pre className="run-commands">{project.runCommands.join('\n')}</pre>

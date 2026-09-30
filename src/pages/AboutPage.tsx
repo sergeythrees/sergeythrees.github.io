@@ -2,6 +2,7 @@ import { Col, Row } from 'antd';
 import { useLocale, useT } from '../i18n/LocaleProvider';
 import PageHeader from '../components/PageHeader';
 import StackTags from '../components/StackTags';
+import RoleLine from '../components/RoleLine';
 
 export default function AboutPage() {
   const t = useT();
@@ -10,7 +11,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <PageHeader eyebrow={t.about.eyebrow} title={t.about.title} subtitle={site.role} />
+      <PageHeader title={t.about.title} subtitle={<RoleLine role={site.role} />} />
 
       <section className="section">
         <Row gutter={[24, 24]}>

@@ -21,18 +21,21 @@ export default function ProjectCard({ project, kind = 'project' }: ProjectCardPr
   const extra = project.stack.length - tags.length;
   const basePath = kind === 'task' ? '/employers/tasks' : '/projects';
   const detailPath = `${basePath}/${project.id}`;
-  const badgeText = project.status;
+  // На странице заданий метка «Тестовое задание» ничего не добавляет — её там не показываем.
+  const badge = kind === 'task' ? undefined : project.badge;
 
   return (
     <Card hoverable variant="borderless" className="project-card">
       <div className="project-card__top">
         <Badge
           status={project.statusType}
-          text={<span className="project-card__status">{badgeText}</span>}
+          text={<span className="project-card__status">{project.status}</span>}
         />
-        {project.appUrl ? <span className="project-card__demo">{t.common.demo}</span> : null}
-        {kind === 'task' || project.badge ? (
-          <span className="project-card__demo">{project.badge ?? t.tasks.badge}</span>
+        {project.appUrl || badge ? (
+          <span className="project-card__badges">
+            {project.appUrl ? <span className="project-card__demo">{t.common.demo}</span> : null}
+            {badge ? <span className="project-card__demo">{badge}</span> : null}
+          </span>
         ) : null}
       </div>
 
@@ -47,21 +50,24 @@ export default function ProjectCard({ project, kind = 'project' }: ProjectCardPr
       <StackTags items={tags} extra={extra} />
 
       <div className="project-card__actions">
+        {/* Без живой ссылки «Открыть» и «Подробнее» вели бы на одну страницу — оставляем одну кнопку. */}
         {project.appUrl ? (
-          <Button
-            type="primary"
-            href={assetUrl(project.appUrl)}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            {kind === 'task' ? t.tasks.openStand : t.common.open}
-          </Button>
+          <>
+            <Button
+              type="primary"
+              href={assetUrl(project.appUrl)}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {kind === 'task' ? t.tasks.openStand : t.common.open}
+            </Button>
+            <Button type="text" onClick={() => navigate(detailPath)}>
+              {t.common.details}
+            </Button>
+          </>
         ) : (
-          <Button onClick={() => navigate(detailPath)}>{t.common.open}</Button>
+          <Button onClick={() => navigate(detailPath)}>{t.common.details}</Button>
         )}
-        <Button type="text" onClick={() => navigate(detailPath)}>
-          {t.common.details}
-        </Button>
       </div>
     </Card>
   );

@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Suspense, lazy, useLayoutEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import AppLayout from './components/AppLayout';
 import HomePage from './pages/HomePage';
 
@@ -14,9 +14,19 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactsPage = lazy(() => import('./pages/ContactsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+/** HashRouter сам не сбрасывает прокрутку: без этого новая страница открывается там, где закончилась старая. */
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 export default function App() {
   return (
     <AppLayout>
+      <ScrollToTop />
       <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
         <Routes>
           <Route path="/" element={<HomePage />} />

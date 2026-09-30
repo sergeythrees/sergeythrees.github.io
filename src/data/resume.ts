@@ -26,10 +26,9 @@ export const resumeRu: Resume = {
   name: 'Сергей Степаненко',
   title: 'Frontend Developer · UX Engineer · Разработчик · AI-автоматизация · Telegram Mini Apps · React',
   summary:
-    'Фронтенд-разработчик с опытом с 2017 года. Специализируюсь на визуальных редакторах: ' +
-    'спроектировал WYSIWYG-редактор форм FormEngine и провёл редизайн конструктора ' +
-    'BPMN-диаграмм WorkflowEngine. Веду фронтенд-направление и развиваю открытые проекты, ' +
-    'включая вклад в rsuite/rsuite.',
+    'Фронтенд-разработчик, работаю с 2017 года. В основном делаю визуальные редакторы: ' +
+    'спроектировал WYSIWYG-редактор форм FormEngine и переделал конструктор BPMN-диаграмм ' +
+    'в WorkflowEngine. Веду фронтенд-направление и участвую в open source, в том числе в rsuite/rsuite.',
 
   contacts: [
     { label: 'Телефон', value: '+7 987 709-68-32', href: 'tel:+79877096832' },
@@ -46,13 +45,13 @@ export const resumeRu: Resume = {
       location: 'Москва, удалённо',
       industry: 'IT / Программное обеспечение',
       description:
-        'FormEngine (Form/Survey/Website Builder): Спроектировал и разработал с нуля интерфейс ' +
-        'встраиваемого WYSIWYG-редактора форм. Интегрировал 50+ UI-компонентов (MUI, Shadcn, Ant). ' +
-        'WorkflowEngine (BPM Platform): Провел редизайн конструктора BPMN-диаграмм и админ-панели. ' +
-        'Занимался фронтенд-поддержкой международных клиентов.',
+        'FormEngine (конструктор форм, опросов и сайтов): с нуля спроектировал и написал интерфейс ' +
+        'встраиваемого WYSIWYG-редактора форм, подключил 50+ UI-компонентов из MUI, Shadcn и Ant. ' +
+        'WorkflowEngine (BPM-платформа): переделал дизайн конструктора BPMN-диаграмм и админки. ' +
+        'Поддерживал фронтенд у международных клиентов.',
       achievements: [
-        'Сократил время сборки интерфейсов на 40%, оптимизировав рендеринг кода',
-        'Внедрил плагинную архитектуру для расширения функционала визуального редактора',
+        'Оптимизировал рендеринг и сократил время сборки интерфейсов на 40%',
+        'Сделал плагинную архитектуру, через которую расширяется визуальный редактор',
       ],
     },
     {
@@ -62,11 +61,10 @@ export const resumeRu: Resume = {
       location: 'Москва',
       industry: 'IT / Программное обеспечение',
       description:
-        'Infertrade (Financial Analytics Tool): Провел глубокий рефакторинг интерфейса платформы ' +
-        'финансовой аналитики. Оптимизировал клиентскую валидацию для моментального отклика ' +
-        'при вводе сложных формул.',
+        'Infertrade (платформа финансовой аналитики): глубоко переработал интерфейс и ускорил ' +
+        'клиентскую валидацию, чтобы сложные формулы проверялись сразу при вводе.',
       achievements: [
-        'Внедрил ленивую загрузку и изоляцию схем валидации плагинов, что ускорило инициализацию дашбордов на 25%',
+        'Сделал ленивую загрузку и изоляцию схем валидации плагинов, дашборды стали запускаться на 25% быстрее',
       ],
     },
     {
@@ -76,11 +74,10 @@ export const resumeRu: Resume = {
       location: 'Москва',
       industry: 'IT / Программное обеспечение',
       description:
-        'iSpring Suite & iSpring Learn: Мигрировал плееры с Flash на HTML5/Canvas и SVG. ' +
-        'Создал адаптивную верстку курсов. Проводил юзабилити-тесты, интервью, создавал CJM ' +
-        'для облачной LMS.',
+        'iSpring Suite и iSpring Learn: перевёл плееры с Flash на HTML5 Canvas и SVG, сверстал ' +
+        'адаптивные курсы. Проводил юзабилити-тесты и интервью, составлял CJM для облачной LMS.',
       achievements: [
-        'Обеспечил рост просмотров курсов с мобильных устройств на 25% благодаря адаптивной верстке',
+        'Адаптивная вёрстка увеличила просмотры курсов с мобильных на 25%',
       ],
     },
   ],
@@ -117,14 +114,13 @@ export const resumeRu: Resume = {
     {
       name: 'FormEngine & WorkflowEngine Extensions',
       description:
-        'Разработка кастомных расширений и SDK для визуальных интерфейсов, интегрируемых ' +
-        'в инфраструктуру крупных корпоративных клиентов.',
+        'Расширения и SDK для визуальных редакторов, которые встраиваются в системы ' +
+        'крупных корпоративных клиентов.',
     },
     {
       name: 'Open Source Contributions',
       description:
-        'Активное участие в развитии и исправлении багов в известной экосистеме ' +
-        'UI-компонентов rsuite/rsuite.',
+        'Исправления багов и доработки в библиотеке UI-компонентов rsuite/rsuite.',
     },
   ],
 
@@ -144,9 +140,9 @@ export const resumeEn: Resume = {
   name: 'Sergei Stepanenko',
   title: 'Frontend Developer & UX Engineer',
   summary:
-    'Frontend developer with experience since 2017. Focused on visual editors: architected the ' +
+    'Frontend developer since 2017, mostly working on visual editors. I architected the ' +
     'FormEngine WYSIWYG form editor and redesigned the WorkflowEngine BPMN diagram builder. ' +
-    'Leading frontend work and contributing to open source projects such as rsuite/rsuite.',
+    'I lead frontend work and contribute to open source, including rsuite/rsuite.',
 
   contacts: [
     { label: 'Phone', value: '+7 987 709-68-32', href: 'tel:+79877096832' },
@@ -163,12 +159,12 @@ export const resumeEn: Resume = {
       location: 'Moscow, Russia (Remote)',
       industry: 'Software & BPM Platforms',
       description:
-        'FormEngine (Form/Survey/Website Builder): Architected and developed an embeddable ' +
-        'WYSIWYG form editor UI from scratch. Integrated 50+ UI components from MUI, Shadcn, ' +
-        'and Ant. WorkflowEngine (BPM Platform): Redesign of the BPMN diagram builder and admin panel.',
+        'FormEngine (form, survey and website builder): designed and built the UI of an embeddable ' +
+        'WYSIWYG form editor from scratch and integrated 50+ UI components from MUI, Shadcn and Ant. ' +
+        'WorkflowEngine (BPM platform): redesigned the BPMN diagram builder and the admin panel.',
       achievements: [
-        'Optimized code rendering, cutting UI build times by 40% and increasing team productivity',
-        'Introduced a plugin architecture to extend the visual editor functionality',
+        'Optimized rendering and cut UI build times by 40%',
+        'Introduced a plugin architecture for extending the visual editor',
       ],
     },
     {
@@ -178,11 +174,10 @@ export const resumeEn: Resume = {
       location: 'Moscow, Russia',
       industry: 'Financial Analytics',
       description:
-        'Infertrade (Financial Analytics Tool): Executed a deep refactoring of the analytics ' +
-        'platform UI, significantly improving frontend stability. Optimized client-side ' +
-        'validation for instant feedback.',
+        'Infertrade (financial analytics tool): reworked the platform UI in depth and sped up ' +
+        'client-side validation so complex formulas are checked as you type.',
       achievements: [
-        'Identified lazy loading advantages, accelerating analytical dashboard initialization by 25%',
+        'Added lazy loading and isolated plugin validation schemas, so dashboards start 25% faster',
       ],
     },
     {
@@ -192,10 +187,10 @@ export const resumeEn: Resume = {
       location: 'Moscow, Russia',
       industry: 'E-learning Software',
       description:
-        'iSpring Suite & iSpring Learn: Migrated e-learning players from legacy Flash to ' +
-        'HTML5/Canvas and SVG. Developed responsive course layouts.',
+        'iSpring Suite & iSpring Learn: moved e-learning players from Flash to HTML5 Canvas ' +
+        'and SVG and built responsive course layouts.',
       achievements: [
-        'Developed responsive course layouts, which drove a 25% increase in mobile views',
+        'Responsive layouts brought 25% more course views from mobile',
       ],
     },
   ],
@@ -231,11 +226,11 @@ export const resumeEn: Resume = {
   projects: [
     {
       name: 'FormEngine & WorkflowEngine Extensions',
-      description: 'Development of custom extensions and SDKs for visual interfaces.',
+      description: 'Custom extensions and SDKs for visual editors.',
     },
     {
       name: 'Open Source Contributions',
-      description: 'Active participation in the development and bug fixing in rsuite/rsuite.',
+      description: 'Bug fixes and improvements in the rsuite/rsuite UI component library.',
     },
   ],
 

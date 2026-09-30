@@ -1,24 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Button, Col, Row } from 'antd';
-import { ExperimentOutlined, FileTextOutlined, MailOutlined } from '@ant-design/icons';
+import { ExperimentOutlined, FileTextOutlined, GithubOutlined, MailOutlined } from '@ant-design/icons';
 import { useLocale } from '../i18n/LocaleProvider';
 import PageHeader from '../components/PageHeader';
 
 export default function EmployersPage() {
   const { content, t } = useLocale();
   const { employers } = content;
+  const githubHref =
+    content.site.links.find((link) => link.label.toLowerCase() === 'github')?.href ??
+    'https://github.com/sergeythrees';
 
   return (
     <>
-      <PageHeader
-        eyebrow={employers.eyebrow}
-        title={employers.title}
-        subtitle={employers.subtitle}
-      />
-
-      <section className="section">
-        <p className="section__lead">{employers.intro}</p>
-      </section>
+      <PageHeader title={employers.title} subtitle={employers.subtitle} />
 
       {/* Две крупные ссылки-карточки: резюме и тестовые задания. */}
       <section className="section">
@@ -67,14 +62,16 @@ export default function EmployersPage() {
             <div className="cta__subtitle">{t.home.ctaText}</div>
           </div>
           <div className="cta__actions">
-            <Link to="/employers/resume">
-              <Button type="primary">{employers.cta.resume}</Button>
-            </Link>
-            <Link to="/employers/tasks">
-              <Button>{employers.cta.tasks}</Button>
-            </Link>
-            <Button href={`mailto:${content.site.email}`} icon={<MailOutlined />}>
+            <Button type="primary" href={`mailto:${content.site.email}`} icon={<MailOutlined />}>
               {employers.cta.contact}
+            </Button>
+            <Button
+              href={githubHref}
+              target="_blank"
+              rel="noreferrer noopener"
+              icon={<GithubOutlined />}
+            >
+              {t.common.github}
             </Button>
           </div>
         </div>
