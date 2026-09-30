@@ -332,22 +332,19 @@
 
     var style = document.createElement('style');
     style.textContent =
-      '.mock-stand-badge{position:fixed;left:12px;bottom:12px;z-index:9999;' +
+      '.mock-stand-badge{position:fixed;left:46px;bottom:36px;z-index:9999;' +
       'display:flex;flex-direction:column;gap:2px;max-width:calc(100vw - 24px);' +
       'box-sizing:border-box;padding:7px 11px;border-radius:8px;text-decoration:none;' +
       'background:rgba(17,17,17,.76);color:#fff;' +
       'font:12px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;' +
       'box-shadow:0 2px 8px rgba(0,0,0,.28);backdrop-filter:blur(4px);}' +
       '.mock-stand-badge:hover{background:rgba(17,17,17,.9);}' +
-      '.mock-stand-badge__hint{opacity:.72;font-size:11px;}' +
-      '@media (max-width:520px){.mock-stand-badge{font-size:11px;padding:6px 9px;}' +
-      '.mock-stand-badge__hint{font-size:10px;}}' +
       // Кнопка демо-входа: нейтральные цвета, чтобы подходила и светлой, и
       // тёмной теме приложения (она следует за системной).
       '.stand-demo-login{display:block;width:100%;box-sizing:border-box;' +
-      'margin:0 0 14px;padding:10px 12px;border:1px dashed currentColor;border-radius:10px;' +
-      'background:transparent;color:inherit;opacity:.75;cursor:pointer;' +
-      'font:inherit;font-size:14px;line-height:1.2;}' +
+      'padding:10px 20px;border:1px dashed var(--tgui--link_color);border-radius:10px;' +
+      'background:transparent;color:var(--tgui--link_color);opacity:.75;cursor:pointer;' +
+      'font:inherit;font-size:14px;line-height:24px;}' +
       '.stand-demo-login:hover{opacity:1;background:rgba(128,128,128,.12);}' +
       '.stand-demo-login:focus-visible{outline:2px solid currentColor;outline-offset:2px;}';
     (document.head || document.documentElement).appendChild(style);
@@ -361,12 +358,7 @@
     var title = document.createElement('span');
     title.textContent = 'Демо-режим: отвечает заглушка GREEN-API';
 
-    var hint = document.createElement('span');
-    hint.className = 'mock-stand-badge__hint';
-    hint.textContent = 'Демо-вход — кнопкой на экране входа, либо свои ключи GREEN-API';
-
     badge.appendChild(title);
-    badge.appendChild(hint);
 
     var host = document.body || document.documentElement;
     if (host) host.appendChild(badge);
