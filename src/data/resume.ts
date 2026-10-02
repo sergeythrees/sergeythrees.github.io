@@ -125,7 +125,7 @@ export const resumeRu: Resume = {
   ],
 
   preferences: [
-    { label: 'Формат работы', value: 'Удалённо' },
+    { label: 'Формат работы', value: 'Офис, гибрид, удалённо' },
     { label: 'Готовность к тестовым заданиям', value: 'Да' },
     { label: 'Переезд', value: 'Готов' },
     { label: 'Выход на работу', value: 'Немедленно' },
