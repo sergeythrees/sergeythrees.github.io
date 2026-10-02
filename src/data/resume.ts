@@ -235,10 +235,10 @@ export const resumeEn: Resume = {
   ],
 
   preferences: [
-    { label: 'Work format', value: 'Remote only' },
+    { label: 'Work format', value: 'Office, remote, hybrid' },
     { label: 'Willing to complete assessments', value: 'Yes' },
     { label: 'Additional checks', value: 'Yes (background check)' },
-    { label: 'Relocation', value: 'Not open to relocation' },
+    { label: 'Relocation', value: 'Open to relocation' },
     { label: 'Availability', value: 'Immediate' },
     { label: 'Salary expectations', value: '$50,000 – 60,000' },
     { label: 'Visa sponsorship required', value: 'US, EU, Canada, UK' },
