@@ -291,7 +291,7 @@ export const contentEn: Content = {
 
   tasks: [
     {
-      id: 'medical-olympics',
+      id: 'medical_olympics',
       name: 'Clinical Cases — Medical Olympics cases',
       tagline: 'Cases, answers and scores: FastAPI, Postgres, LLM',
       badge: 'Test assignment',
@@ -316,6 +316,7 @@ export const contentEn: Content = {
         'Frontend types are generated from the backend OpenAPI schema, and contract drift is caught by tests on both sides.',
         'Raw text to CaseIn extraction via an LLM with a repair loop; a draft is not saved until the author publishes it.',
         'An eval harness with quality gates: the run exits with code 1 when metrics fall below the thresholds.',
+        'Frontend: a 404 for a missing case, an error boundary, aria-live for the result, a dark theme; tests on Vitest + Testing Library.',
       ],
       stack: [
         'Python 3.13',
@@ -332,17 +333,20 @@ export const contentEn: Content = {
       links: [
         {
           label: 'Source code',
-          href: 'https://github.com/sergeythrees/medical-olympics',
-          hint: 'sergeythrees/medical-olympics',
+          href: 'https://github.com/sergeythrees/medical_olympics',
+          hint: 'sergeythrees/medical_olympics',
         },
       ],
       runNote:
-        'The whole stack starts with docker compose up --build: the frontend opens at ' +
+        'The whole stack starts with docker compose up -d --build: the frontend opens at ' +
         'http://localhost:3000 and Swagger at http://localhost:8000/docs, with the 4 demo cases ' +
         'already seeded. Extraction only works if a DeepSeek or Gemini key is set in ' +
         'backend/.env; without a key POST /extract returns 503. There is no live stand — it ' +
-        'needs Postgres and FastAPI, so it only runs locally.',
-      runCommands: ['docker compose up --build'],
+        'needs Postgres and FastAPI, so it only runs locally. The full guide is in INSTALL.md: ' +
+        'requirements and versions, environment variables, running without Docker, tests and ' +
+        'lint, running the evals, and the usual failures (port 5432 or 8000 already in use, a ' +
+        'failed migrate, /extract returning 503).',
+      runCommands: ['docker compose up -d --build'],
       details: [
         'The three parts of the assignment form one product: raw text goes through LLM extraction ' +
           'into a CaseIn, that same CaseIn is the POST /cases body, and the Next.js frontend reads ' +
@@ -370,16 +374,25 @@ export const contentEn: Content = {
           'venous pressure”), and the rest exposed an inconsistency in my own annotation: blood ' +
           'gases were one finding in one case and five in another. So the metric was split — ' +
           'coverage and grounded check content and act as gates, F1 describes structure. Four ' +
-          'cases are a harness demo, not a statistically significant model comparison.',
+          'cases are a harness demo, not a statistically significant model comparison. The whole ' +
+          'chain was also verified live on a Russian case that is not part of the golden set ' +
+          '(meningococcemia): POST /extract returned a valid case in about 9 s, POST /cases ' +
+          'accepted it, and the page rendered in the frontend.',
+        'One backend image serves both the API and the migrations: the same image runs uvicorn, ' +
+          'while migrations run as a separate one-off step — the migrate service in compose and a ' +
+          'Cloud Run Job on GCP. Lint, tests and the build run in CI; Alembic upgrades the schema ' +
+          'to the latest revision and downgrades it to empty (the working downgrade is covered by ' +
+          'a test). Deployment to Cloud Run + Cloud SQL over a unix socket, with Secret Manager ' +
+          'and Vertex AI via a service account, is described in deploy/README.md.',
       ],
       screenshots: [
-        { src: 'projects/medical-olympics/01-cases.webp', caption: 'Clinical case list' },
+        { src: 'projects/medical_olympics/01-cases.webp', caption: 'Clinical case list' },
         {
-          src: 'projects/medical-olympics/02-case.webp',
+          src: 'projects/medical_olympics/02-case.webp',
           caption: 'A case: findings, vitals and the answer form',
         },
         {
-          src: 'projects/medical-olympics/03-result.webp',
+          src: 'projects/medical_olympics/03-result.webp',
           caption: 'Answer debrief: score, missed and harmful actions',
         },
       ],

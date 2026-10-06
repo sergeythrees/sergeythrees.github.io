@@ -292,7 +292,7 @@ export const contentRu: Content = {
 
   tasks: [
     {
-      id: 'medical-olympics',
+      id: 'medical_olympics',
       name: 'Clinical Cases — кейсы Medical Olympics',
       tagline: 'Кейсы, ответы и баллы: FastAPI, Postgres, LLM',
       badge: 'Тестовое задание',
@@ -316,6 +316,7 @@ export const contentRu: Content = {
         'Типы фронтенда генерируются из OpenAPI backend, дрейф контракта ловят тесты с обеих сторон.',
         'Извлечение «сырой текст → CaseIn» через LLM с repair-циклом; черновик не сохраняется, пока автор его не опубликует.',
         'Харнес оценки с quality gates: прогон завершается кодом 1, если метрики ниже порога.',
+        'Фронтенд: 404 для несуществующего кейса, error boundary, aria-live для результата, тёмная тема; тесты на Vitest + Testing Library.',
       ],
       stack: [
         'Python 3.13',
@@ -332,17 +333,20 @@ export const contentRu: Content = {
       links: [
         {
           label: 'Исходный код',
-          href: 'https://github.com/sergeythrees/medical-olympics',
-          hint: 'sergeythrees/medical-olympics',
+          href: 'https://github.com/sergeythrees/medical_olympics',
+          hint: 'sergeythrees/medical_olympics',
         },
       ],
       runNote:
-        'Весь стек поднимается одной командой docker compose up --build: фронтенд открывается ' +
+        'Весь стек поднимается одной командой docker compose up -d --build: фронтенд открывается ' +
         'на http://localhost:3000, Swagger — на http://localhost:8000/docs, 4 демо-кейса уже ' +
         'в базе. Извлечение текста работает, только если в backend/.env задан ключ DeepSeek ' +
         'или Gemini; без ключа POST /extract отвечает 503. Живого стенда нет — нужны Postgres ' +
-        'и FastAPI, поэтому всё запускается локально.',
-      runCommands: ['docker compose up --build'],
+        'и FastAPI, поэтому всё запускается локально. Подробная инструкция — в INSTALL.md: ' +
+        'требования и версии, переменные окружения, запуск без Docker, тесты и линт, прогон ' +
+        'evals и разбор типичных ошибок (занят порт 5432 или 8000, упавший migrate, /extract ' +
+        'отвечает 503).',
+      runCommands: ['docker compose up -d --build'],
       details: [
         'Три части задания — один продукт: сырой текст проходит LLM-извлечение и превращается ' +
           'в CaseIn, тот же CaseIn принимает POST /cases, а фронтенд на Next.js читает и отвечает ' +
@@ -368,16 +372,24 @@ export const contentRu: Content = {
           'pressure»), а оставшиеся вскрыли непоследовательность моей разметки: газы крови ' +
           'в одном кейсе — одна находка, в другом — пять. Поэтому метрика разделена: coverage ' +
           'и grounded проверяют содержание и работают как gate, F1 — структуру. 4 кейса — это ' +
-          'демонстрация харнеса, а не статистически значимое сравнение моделей.',
+          'демонстрация харнеса, а не статистически значимое сравнение моделей. Цепочка проверена ' +
+          'вживую на кейсе не из golden-набора и на русском (менингококкемия): POST /extract за ~9 с ' +
+          'вернул валидный кейс, POST /cases его принял, страница отрисовалась во фронтенде.',
+        'Один образ backend годится и для API, и для миграций: тот же образ запускает uvicorn, ' +
+          'а миграции выполняются отдельным одноразовым шагом — сервисом migrate в compose и ' +
+          'Cloud Run Job в GCP. Линт, тесты и сборка идут в CI, Alembic поднимает схему до ' +
+          'последней ревизии и откатывает до пустой (рабочий откат проверяется тестом). Деплой ' +
+          'на Cloud Run + Cloud SQL через unix-сокет, Secret Manager и Vertex AI по service ' +
+          'account описан в deploy/README.md.',
       ],
       screenshots: [
-        { src: 'projects/medical-olympics/01-cases.webp', caption: 'Список клинических кейсов' },
+        { src: 'projects/medical_olympics/01-cases.webp', caption: 'Список клинических кейсов' },
         {
-          src: 'projects/medical-olympics/02-case.webp',
+          src: 'projects/medical_olympics/02-case.webp',
           caption: 'Кейс: находки, витальные и форма ответа',
         },
         {
-          src: 'projects/medical-olympics/03-result.webp',
+          src: 'projects/medical_olympics/03-result.webp',
           caption: 'Разбор ответа: баллы, пропущенные и вредные действия',
         },
       ],
