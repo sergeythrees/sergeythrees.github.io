@@ -15,7 +15,7 @@ export const contentRu: Content = {
       'Telegram Mini App с депозитом в TON, бот на DeepSeek и браузерный агент для откликов ' +
       'на вакансии. У каждого есть исходники и инструкция по запуску.',
     email: 'sergeythrees@gmail.com',
-    location: 'Москва · удалённо',
+    location: 'Москва · офис, гибрид, удалённо',
     links: [
       {
         label: 'GitHub',
