@@ -14,7 +14,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactsPage = lazy(() => import('./pages/ContactsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
-/** HashRouter сам не сбрасывает прокрутку: без этого новая страница открывается там, где закончилась старая. */
+/** Роутер сам не сбрасывает прокрутку: без этого новая страница открывается там, где закончилась старая. */
 function ScrollToTop() {
   const { pathname } = useLocation();
   useLayoutEffect(() => {

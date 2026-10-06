@@ -28,7 +28,7 @@ https://sergeythrees.github.io. Серверной части нет: весь �
 - TypeScript
 - Vite
 - antd 6 (+ `@ant-design/icons`)
-- react-router-dom 7 (HashRouter)
+- react-router-dom 7 (BrowserRouter)
 
 Других зависимостей нет — ни стейт-менеджеров, ни CSS-фреймворков.
 
@@ -59,19 +59,25 @@ npm run typecheck
 
 Почему так:
 
-- `HashRouter` — маршрут целиком хранится в hash-части URL, поэтому прямые ссылки
-  на внутренние страницы работают на GitHub Pages без `404.html` и редиректов.
-- `base: './'` в `vite.config.ts` — ассеты подключаются относительными путями и не
-  ломаются при публикации не из корня домена.
+- `BrowserRouter` и никаких решёток в адресе. GitHub Pages не отдаёт `index.html`
+  для произвольного пути, поэтому сборка кладёт копию `index.html` в `404.html`
+  (`scripts/make-404.mjs`, запускается из `npm run build`). Прямой заход на
+  `/employers/tasks/` получает эту копию, и приложение открывается по тому же адресу.
+- `base: '/'` в `vite.config.ts` — ассеты подключаются абсолютными путями. На глубоком
+  маршруте относительные `./assets/...` указывали бы в несуществующий подкаталог.
+  Сайт опубликован в корне домена, поэтому абсолютные пути безопасны.
+- Старые ссылки с решёткой (`/#/employers/tasks/`) продолжают работать: `main.tsx`
+  переносит hash-маршрут в путь до первой отрисовки.
 
 ## Структура
 
 ```text
 index.html                     точка входа, метатеги, установка темы до первой отрисовки
-vite.config.ts                 base: './', порт dev-сервера 5173, outDir dist
+vite.config.ts                 base: '/', порт dev-сервера 5173, outDir dist
 package.json                   скрипты dev / build / preview / typecheck
+scripts/make-404.mjs           копия index.html → 404.html для GitHub Pages
 src/
-  main.tsx                     провайдеры (ThemeProvider, LocaleProvider), HashRouter, ConfigProvider
+  main.tsx                     провайдеры (ThemeProvider, LocaleProvider), BrowserRouter, ConfigProvider
   App.tsx                      маршруты, lazy-загрузка страниц
   i18n/
     LocaleProvider.tsx         контекст локали: t, content, setLocale, toggleLocale

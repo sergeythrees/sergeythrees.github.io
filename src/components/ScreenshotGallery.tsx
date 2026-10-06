@@ -7,7 +7,7 @@ interface ScreenshotGalleryProps {
   note?: string;
 }
 
-/** Путь из public/ с учётом base: './'. */
+/** Путь из public/ с учётом base: '/'. */
 export function assetUrl(src: string): string {
   if (/^(https?:)?\/\//.test(src) || src.startsWith('data:')) {
     return src;

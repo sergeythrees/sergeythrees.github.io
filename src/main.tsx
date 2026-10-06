@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { App as AntApp, ConfigProvider } from 'antd';
 import App from './App';
 import { ThemeProvider, useThemeMode } from './theme/ThemeProvider';
@@ -26,12 +26,17 @@ function Root() {
     <ConfigProvider theme={antdTheme}>
       {/* AntApp нужен, чтобы App.useApp() отдавал message внутри страниц. */}
       <AntApp>
-        <HashRouter>
+        <BrowserRouter>
           <App />
-        </HashRouter>
+        </BrowserRouter>
       </AntApp>
     </ConfigProvider>
   );
+}
+
+// Старые ссылки с решёткой (/#/employers/tasks/) переносим в путь: /employers/tasks/.
+if (window.location.hash.startsWith('#/')) {
+  window.history.replaceState(null, '', window.location.hash.slice(1));
 }
 
 createRoot(mountNode).render(
