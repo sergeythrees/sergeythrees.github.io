@@ -24,6 +24,8 @@ export interface Project {
   name: string;
   tagline: string;
   summary: string;
+  /** Исходное ТЗ: текст задания в том виде, в каком его прислал работодатель. */
+  brief?: string[];
   status: string;
   statusType: ProjectStatusType;
   facts: Fact[];

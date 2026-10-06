@@ -300,6 +300,18 @@ export const contentEn: Content = {
         'and management, and gets a score with a breakdown. The assignment had three parts — ' +
         'FastAPI + PostgreSQL, a Next.js frontend, and extracting a case from raw text with an ' +
         'LLM and an eval harness.',
+      brief: [
+        'Three tasks on a real stack.',
+        'Backend (FastAPI + PostgreSQL). A small FastAPI service: an endpoint takes a clinical ' +
+          'case as JSON and stores it in PostgreSQL with a normalised schema (Alembic migrations), ' +
+          'plus an endpoint that scores the submitted answers.',
+        'Frontend (Next.js + TypeScript). A Next.js page (App Router) that talks to the backend: ' +
+          'the case is rendered with Server Components, the interaction is client-side (submit a ' +
+          'diagnosis — see the result), and the types are shared between the API and the frontend.',
+        'LLM pipeline + GCP. Turn raw clinical text into a structured case that follows a given ' +
+          'JSON schema via an LLM (Vertex AI/Gemini or similar), with a small harness that measures ' +
+          'extraction accuracy; package it in Docker and describe the deployment to Cloud Run.',
+      ],
       status: 'Completed',
       statusType: 'success',
       facts: [

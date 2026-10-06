@@ -25,6 +25,7 @@ export const ru = {
     stack: 'Стек',
     features: 'Что умеет',
     detailsTitle: 'О проекте',
+    briefTitle: 'Исходное ТЗ',
     screenshots: 'Скриншоты',
     runTitle: 'Запуск локально',
     copyOk: 'Почта скопирована',

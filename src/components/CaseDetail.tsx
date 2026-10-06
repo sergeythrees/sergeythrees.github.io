@@ -93,6 +93,17 @@ export default function CaseDetail({
 
       <p className="detail-summary">{project.summary}</p>
 
+      {project.brief?.length ? (
+        <section className="section">
+          <h2 className="section__title">{t.common.briefTitle}</h2>
+          {project.brief.map((paragraph) => (
+            <p key={paragraph.slice(0, 32)} className="section__paragraph">
+              {paragraph}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
       <section className="section">
         <Row gutter={[16, 16]}>
           {project.facts.map((fact) => (

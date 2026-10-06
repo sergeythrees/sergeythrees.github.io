@@ -23,6 +23,7 @@ export const en: Dictionary = {
     stack: 'Stack',
     features: 'What it does',
     detailsTitle: 'About the project',
+    briefTitle: 'Original brief',
     screenshots: 'Screenshots',
     runTitle: 'Run locally',
     copyOk: 'Email copied',
