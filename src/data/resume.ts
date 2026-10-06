@@ -16,15 +16,10 @@ const skillItems = {
   ai: ['Cursor', 'MCP', 'Agent orchestration', 'LLM API integration'],
 };
 
-// Языки одинаковы в обеих версиях.
-const languages: Resume['languages'] = [
-  { language: 'Russian', level: 'Native' },
-  { language: 'English', level: 'B2' },
-];
 
 export const resumeRu: Resume = {
   name: 'Сергей Степаненко',
-  title: 'Frontend Developer · UX Engineer · Разработчик · AI-автоматизация · Telegram Mini Apps · React',
+  title: 'Фронтенд-разработчик и UX-инженер',
   summary:
     'Фронтенд-разработчик, работаю с 2017 года. В основном делаю визуальные редакторы: ' +
     'спроектировал WYSIWYG-редактор форм FormEngine и переделал конструктор BPMN-диаграмм ' +
@@ -108,7 +103,10 @@ export const resumeRu: Resume = {
     { group: 'AI-инструменты', items: skillItems.ai },
   ],
 
-  languages,
+  languages: [
+    { language: 'Русский', level: 'Родной' },
+    { language: 'Английский', level: 'B2' },
+  ],
 
   projects: [
     {
@@ -221,7 +219,10 @@ export const resumeEn: Resume = {
     { group: 'AI tools', items: skillItems.ai },
   ],
 
-  languages,
+  languages: [
+    { language: 'Russian', level: 'Native' },
+    { language: 'English', level: 'B2' },
+  ],
 
   projects: [
     {

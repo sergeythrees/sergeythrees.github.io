@@ -100,11 +100,6 @@ export const contentRu: Content = {
         'Docusaurus',
       ],
       links: [
-        {
-          label: 'Открыть дизайнер',
-          href: 'https://formbuilder.formengine.io',
-          hint: 'Живой демо-стенд',
-        },
         { label: 'Демо-приложения', href: 'https://demo.formengine.io' },
         { label: 'Документация', href: 'https://formengine.io/documentation/' },
         { label: 'Исходный код', href: 'https://github.com/sergeythrees/fe' },
@@ -126,7 +121,6 @@ export const contentRu: Content = {
         { src: 'projects/fe/02-viewer.webp', caption: 'Просмотрщик: форма, собранная по схеме' },
         { src: 'projects/fe/03-form-builder.webp', caption: 'Form Builder из набора примеров' },
         { src: 'projects/fe/04-form-viewer.webp', caption: 'Отрисованная форма во вьюере' },
-        { src: 'projects/fe/05-og.webp', caption: 'Обложка документации проекта' },
       ],
     },
     {
@@ -298,6 +292,97 @@ export const contentRu: Content = {
 
   tasks: [
     {
+      id: 'medical-olympics',
+      name: 'Clinical Cases — кейсы Medical Olympics',
+      tagline: 'Кейсы, ответы и баллы: FastAPI, Postgres, LLM',
+      badge: 'Тестовое задание',
+      summary:
+        'Мини-версия Medical Olympics: врач читает клинический кейс, выбирает диагноз и тактику ' +
+        'и получает баллы с разбором. В задании было три части — FastAPI + PostgreSQL, ' +
+        'фронтенд на Next.js и извлечение кейса из сырого текста через LLM с харнесом оценки.',
+      status: 'Выполнено',
+      statusType: 'success',
+      facts: [
+        { label: 'Тестов', value: '31 (pytest, реальный Postgres)' },
+        { label: 'Части задания', value: '3: API+БД, фронтенд, LLM-извлечение' },
+        { label: 'LLM-оценка', value: 'харнес, 4 golden-кейса' },
+      ],
+      features: [
+        'Целостность держит БД: составные FK и частичный уникальный индекс «один диагноз в ответе».',
+        'Одна попытка на участника — UNIQUE (case_id, participant); гонку двух запросов разрешает БД (409).',
+        'Скоринг считается во view submission_scores (score, max_score, diagnosis_correct) — одно правило на результат и лидерборд.',
+        'Публичная схема CasePublic не отдаёт баллы и объяснения — тест проверяет, что ключ ответов не утекает.',
+        'Server Components грузят список и страницу кейса, единственный клиентский остров — AnswerForm, отправка через Server Action.',
+        'Типы фронтенда генерируются из OpenAPI backend, дрейф контракта ловят тесты с обеих сторон.',
+        'Извлечение «сырой текст → CaseIn» через LLM с repair-циклом; черновик не сохраняется, пока автор его не опубликует.',
+        'Харнес оценки с quality gates: прогон завершается кодом 1, если метрики ниже порога.',
+      ],
+      stack: [
+        'Python 3.13',
+        'FastAPI',
+        'PostgreSQL 17',
+        'SQLAlchemy',
+        'Alembic',
+        'Pydantic',
+        'Next.js 16',
+        'React 19',
+        'TypeScript',
+        'Docker',
+      ],
+      links: [
+        {
+          label: 'Исходный код',
+          href: 'https://github.com/sergeythrees/medical-olympics',
+          hint: 'sergeythrees/medical-olympics',
+        },
+      ],
+      runNote:
+        'Весь стек поднимается одной командой docker compose up --build: фронтенд открывается ' +
+        'на http://localhost:3000, Swagger — на http://localhost:8000/docs, 4 демо-кейса уже ' +
+        'в базе. Извлечение текста работает, только если в backend/.env задан ключ DeepSeek ' +
+        'или Gemini; без ключа POST /extract отвечает 503. Живого стенда нет — нужны Postgres ' +
+        'и FastAPI, поэтому всё запускается локально.',
+      runCommands: ['docker compose up --build'],
+      details: [
+        'Три части задания — один продукт: сырой текст проходит LLM-извлечение и превращается ' +
+          'в CaseIn, тот же CaseIn принимает POST /cases, а фронтенд на Next.js читает и отвечает ' +
+          'через API. Один Pydantic-класс CaseIn — это одновременно тело запроса, JSON-схема для ' +
+          'модели и источник TypeScript-типов фронтенда через OpenAPI, поэтому правила валидации ' +
+          'для черновика от LLM и для кейса из API одни и те же.',
+        'Целостность и скоринг я вынес в базу, а не в код приложения: ответ нельзя привязать ' +
+          'к варианту из чужого кейса (составные FK), в ответе не может быть двух диагнозов ' +
+          '(частичный уникальный индекс), а попытка одна на участника — гонку двух одновременных ' +
+          'запросов разрешает БД. Баллы считает view submission_scores: одна агрегация с FILTER ' +
+          'даёт score, max_score и diagnosis_correct, из этого же view читают разбор ответа ' +
+          'и лидерборд, так что правило подсчёта живёт в одном месте.',
+        'В LLM-пайплайне JSON-схема берётся из CaseIn.model_json_schema(), ответ модели ' +
+          'валидируется тем же классом, а при невалидном JSON или нарушении правил модель ' +
+          'получает свой ответ и точный текст ошибки — до 3 попыток, дальше 502. Промпт требует ' +
+          'не выдумывать отсутствующие данные (null) и сохранять отрицания; черновик из /extract ' +
+          'не сохраняется, кейс с ключом ответов публикует автор после проверки — LLM не должен ' +
+          'единолично решать, что считать правильным ответом.',
+        'Харнес оценки на 4 golden-кейсах, прогоны deepseek-flash: schema_valid 1.0 без repair, ' +
+          'правильный диагноз и полярность действий без ошибок, vitals/coverage/grounded/values ' +
+          '1.00, findings_f1 0.94–0.95, задержка 6.7–9.6 с. Первый прогон дал F1 0.80, но почти ' +
+          'все расхождения оказались ошибками метрики (синонимы вроде «JVP» и «Jugular venous ' +
+          'pressure»), а оставшиеся вскрыли непоследовательность моей разметки: газы крови ' +
+          'в одном кейсе — одна находка, в другом — пять. Поэтому метрика разделена: coverage ' +
+          'и grounded проверяют содержание и работают как gate, F1 — структуру. 4 кейса — это ' +
+          'демонстрация харнеса, а не статистически значимое сравнение моделей.',
+      ],
+      screenshots: [
+        { src: 'projects/medical-olympics/01-cases.webp', caption: 'Список клинических кейсов' },
+        {
+          src: 'projects/medical-olympics/02-case.webp',
+          caption: 'Кейс: находки, витальные и форма ответа',
+        },
+        {
+          src: 'projects/medical-olympics/03-result.webp',
+          caption: 'Разбор ответа: баллы, пропущенные и вредные действия',
+        },
+      ],
+    },
+    {
       id: 'green-api',
       name: 'Чат-клиент Telegram на GREEN-API',
       tagline: 'Веб-клиент чата на HTTP API',
@@ -406,10 +491,8 @@ export const contentRu: Content = {
   ],
 
   employers: {
-    eyebrow: 'Работодателям',
     title: 'Работодателям',
-    subtitle: 'Резюме, тестовые задания и контакты.',
-    intro:
+    subtitle:
       'Здесь то, что обычно просят на первом этапе: резюме, выполненные тестовые задания ' +
       'с исходниками и контакты.',
     highlights: [
@@ -427,8 +510,6 @@ export const contentRu: Content = {
       },
     ],
     cta: {
-      resume: 'Смотреть резюме',
-      tasks: 'Тестовые задания',
       contact: 'Написать',
     },
   },

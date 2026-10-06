@@ -5,7 +5,7 @@ export type ProjectStatusType = 'success' | 'processing' | 'default' | 'warning'
 export interface ProjectLink {
   label: string;
   href: string;
-  /** Короткая подпись под кнопкой, чтобы было понятно, куда ведёт ссылка. */
+  /** Подсказка при наведении на кнопку, чтобы было понятно, куда ведёт ссылка. */
   hint?: string;
 }
 
@@ -69,13 +69,11 @@ export interface Profile {
 }
 
 export interface EmployersContent {
-  eyebrow: string;
   title: string;
   subtitle: string;
-  intro: string;
   highlights: { title: string; text: string }[];
-  /** Куда ведут кнопки на странице раздела. */
-  cta: { resume: string; tasks: string; contact: string };
+  /** Подпись кнопки «Написать» в блоке связи. */
+  cta: { contact: string };
 }
 
 /** Локализованный контент сайта целиком. */

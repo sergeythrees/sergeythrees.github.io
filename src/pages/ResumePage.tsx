@@ -27,9 +27,9 @@ export default function ResumePage() {
                 <img
                   className="about-photo__img"
                   src={assetUrl('photo.jpg')}
+                  alt={resume.name}
                   width={199}
                   height={199}
-                  loading="lazy"
                 />
               </figure>
             </Col>

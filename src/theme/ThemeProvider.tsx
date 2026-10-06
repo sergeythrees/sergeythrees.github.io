@@ -85,8 +85,10 @@ function buildAntdTheme(mode: ThemeMode): ThemeConfig {
   return {
     algorithm: dark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
     token: {
-      colorPrimary: '#4d8dfd',
-      colorInfo: '#4d8dfd',
+      // Заливка кнопок темнее акцента ссылок: белый текст на #4d8dfd даёт контраст ~3.2:1,
+      // на #2f6fe4 — 4.65:1 (норма WCAG AA — 4.5:1). Совпадает с --accent светлой темы.
+      colorPrimary: '#2f6fe4',
+      colorInfo: '#2f6fe4',
       colorSuccess: '#3ecf8e',
       colorWarning: '#e2a03f',
       colorError: '#f2555a',

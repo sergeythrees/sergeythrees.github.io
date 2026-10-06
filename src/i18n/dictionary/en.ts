@@ -30,8 +30,7 @@ export const en: Dictionary = {
   },
   project: {
     openApp: 'Open the app',
-    localOnly: 'Runs locally only',
-    localOnlyNote: 'No public demo yet. How to run it locally is described below.',
+    localOnly: 'How to run it locally',
     prev: '← Previous',
     next: 'Next →',
     notFound: 'Project not found',
@@ -39,7 +38,6 @@ export const en: Dictionary = {
     galleryEmpty: 'Screenshots coming soon.',
   },
   home: {
-    eyebrow: 'Portfolio · GitHub',
     ctaProjects: 'See projects',
     ctaAbout: 'About me',
     projectsTitle: 'Projects',
@@ -49,52 +47,23 @@ export const en: Dictionary = {
     ctaText: 'Write to me about a job, a project or a question about my code.',
   },
   projects: {
-    eyebrow: 'Section',
     title: 'Projects',
     subtitle: 'My projects, with source code and run instructions.',
   },
   about: {
-    eyebrow: 'About',
     title: 'About me',
     skillsTitle: 'Stack',
     principlesTitle: 'Principles',
   },
   contacts: {
-    eyebrow: 'Contact',
     title: 'Contacts',
     subtitle: 'Write to me about a job, a project or a question about my code.',
-    quickLabel: 'Quick',
-    quickText: 'Copy the address without opening a mail app',
     more: 'More code and projects on',
     projectsHint: 'Each project page explains how to run it locally.',
     seeProjects: 'See projects',
   },
   employers: {
-    eyebrow: 'For employers',
-    title: 'For employers',
-    subtitle: 'Résumé, test assignments and contacts.',
-    intro:
-      'What people usually ask for at the first stage: a résumé, completed test assignments with source code, and contacts.',
     highlightsTitle: 'In short',
-    highlights: [
-      {
-        title: '8 years in frontend',
-        text: 'From Flash players to a WYSIWYG form editor and a BPMN diagram builder.',
-      },
-      {
-        title: 'My own projects',
-        text: 'A form builder, a Telegram Mini App with TON payments, an LLM bot and a browser agent.',
-      },
-      {
-        title: 'Open source',
-        text: 'The projects are on GitHub, and the test assignments come with tests and run instructions.',
-      },
-    ],
-    cta: {
-      resume: 'View résumé',
-      tasks: 'Test assignments',
-      contact: 'Get in touch',
-    },
     resumeTitle: 'Résumé',
     resumeText: 'Experience, education, skills and work preferences. PDF included.',
     tasksTitle: 'Test assignments',
@@ -113,10 +82,8 @@ export const en: Dictionary = {
     noPdf: 'The PDF version is coming soon',
   },
   tasks: {
-    eyebrow: 'Section',
     title: 'Test assignments',
     subtitle: 'Assignments from employers. The code is open, and you can try the chat client right on this site.',
-    badge: 'Test assignment',
     openStand: 'Open the stand',
   },
   notFound: {

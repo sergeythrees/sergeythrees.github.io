@@ -97,11 +97,6 @@ export const contentEn: Content = {
         'Docusaurus',
       ],
       links: [
-        {
-          label: 'Open the designer',
-          href: 'https://formbuilder.formengine.io',
-          hint: 'Live demo stand',
-        },
         { label: 'Demo apps', href: 'https://demo.formengine.io' },
         { label: 'Documentation', href: 'https://formengine.io/documentation/' },
         { label: 'Source code', href: 'https://github.com/sergeythrees/fe' },
@@ -123,7 +118,6 @@ export const contentEn: Content = {
         { src: 'projects/fe/02-viewer.webp', caption: 'Viewer: a form assembled from a schema' },
         { src: 'projects/fe/03-form-builder.webp', caption: 'Form Builder from the examples set' },
         { src: 'projects/fe/04-form-viewer.webp', caption: 'A rendered form in the viewer' },
-        { src: 'projects/fe/05-og.webp', caption: 'Cover art for the project documentation' },
       ],
     },
     {
@@ -297,6 +291,100 @@ export const contentEn: Content = {
 
   tasks: [
     {
+      id: 'medical-olympics',
+      name: 'Clinical Cases — Medical Olympics cases',
+      tagline: 'Cases, answers and scores: FastAPI, Postgres, LLM',
+      badge: 'Test assignment',
+      summary:
+        'A mini version of Medical Olympics: a doctor reads a clinical case, picks a diagnosis ' +
+        'and management, and gets a score with a breakdown. The assignment had three parts — ' +
+        'FastAPI + PostgreSQL, a Next.js frontend, and extracting a case from raw text with an ' +
+        'LLM and an eval harness.',
+      status: 'Completed',
+      statusType: 'success',
+      facts: [
+        { label: 'Tests', value: '31 (pytest, real Postgres)' },
+        { label: 'Assignment parts', value: '3: API+DB, frontend, LLM extraction' },
+        { label: 'LLM evaluation', value: 'harness, 4 golden cases' },
+      ],
+      features: [
+        'The database enforces integrity: composite FKs and a partial unique index for one diagnosis per answer.',
+        'One attempt per participant — UNIQUE (case_id, participant); the database settles the race between two requests (409).',
+        'Scoring lives in the submission_scores view (score, max_score, diagnosis_correct) — one rule for the result and the leaderboard.',
+        'The public CasePublic schema never returns points or explanations — a test checks that the answer key does not leak.',
+        'Server Components load the case list and the case page; the only client island is AnswerForm, submitting through a Server Action.',
+        'Frontend types are generated from the backend OpenAPI schema, and contract drift is caught by tests on both sides.',
+        'Raw text to CaseIn extraction via an LLM with a repair loop; a draft is not saved until the author publishes it.',
+        'An eval harness with quality gates: the run exits with code 1 when metrics fall below the thresholds.',
+      ],
+      stack: [
+        'Python 3.13',
+        'FastAPI',
+        'PostgreSQL 17',
+        'SQLAlchemy',
+        'Alembic',
+        'Pydantic',
+        'Next.js 16',
+        'React 19',
+        'TypeScript',
+        'Docker',
+      ],
+      links: [
+        {
+          label: 'Source code',
+          href: 'https://github.com/sergeythrees/medical-olympics',
+          hint: 'sergeythrees/medical-olympics',
+        },
+      ],
+      runNote:
+        'The whole stack starts with docker compose up --build: the frontend opens at ' +
+        'http://localhost:3000 and Swagger at http://localhost:8000/docs, with the 4 demo cases ' +
+        'already seeded. Extraction only works if a DeepSeek or Gemini key is set in ' +
+        'backend/.env; without a key POST /extract returns 503. There is no live stand — it ' +
+        'needs Postgres and FastAPI, so it only runs locally.',
+      runCommands: ['docker compose up --build'],
+      details: [
+        'The three parts of the assignment form one product: raw text goes through LLM extraction ' +
+          'into a CaseIn, that same CaseIn is the POST /cases body, and the Next.js frontend reads ' +
+          'and answers through the API. One Pydantic class, CaseIn, is at once the request body, ' +
+          'the JSON schema for the model and the source of the frontend TypeScript types via ' +
+          'OpenAPI, so the validation rules are the same for an LLM draft and for a case posted ' +
+          'to the API.',
+        'I put integrity and scoring in the database rather than in application code: an answer ' +
+          'cannot point at an option from another case (composite FKs), an answer cannot hold two ' +
+          'diagnoses (partial unique index), a participant gets one attempt, and the database ' +
+          'settles the race between two concurrent requests. Points are computed by the ' +
+          'submission_scores view: one aggregation with FILTER yields score, max_score and ' +
+          'diagnosis_correct, and both the answer breakdown and the leaderboard read that same ' +
+          'view, so the scoring rule lives in one place.',
+        'In the LLM pipeline the JSON schema comes from CaseIn.model_json_schema(), the model ' +
+          'output is validated by the same class, and on invalid JSON or a broken rule the model ' +
+          'gets its own answer back with the exact error text — up to 3 attempts, then 502. The ' +
+          'prompt requires not inventing missing data (null) and preserving negations; a draft ' +
+          'from /extract is not saved, and the author publishes the case with its answer key ' +
+          'after review — the LLM should not be the one deciding what counts as the right answer.',
+        'The eval harness runs on 4 golden cases; with deepseek-flash: schema_valid 1.0 without ' +
+          'repair, correct diagnosis and management polarity clean, vitals/coverage/grounded/values ' +
+          '1.00, findings_f1 0.94–0.95, latency 6.7–9.6 s. The first run gave F1 0.80, but almost ' +
+          'all mismatches turned out to be metric bugs (synonyms such as “JVP” and “Jugular ' +
+          'venous pressure”), and the rest exposed an inconsistency in my own annotation: blood ' +
+          'gases were one finding in one case and five in another. So the metric was split — ' +
+          'coverage and grounded check content and act as gates, F1 describes structure. Four ' +
+          'cases are a harness demo, not a statistically significant model comparison.',
+      ],
+      screenshots: [
+        { src: 'projects/medical-olympics/01-cases.webp', caption: 'Clinical case list' },
+        {
+          src: 'projects/medical-olympics/02-case.webp',
+          caption: 'A case: findings, vitals and the answer form',
+        },
+        {
+          src: 'projects/medical-olympics/03-result.webp',
+          caption: 'Answer debrief: score, missed and harmful actions',
+        },
+      ],
+    },
+    {
       id: 'green-api',
       name: 'Telegram chat client on GREEN-API',
       tagline: 'A web chat client on an HTTP API',
@@ -405,10 +493,8 @@ export const contentEn: Content = {
   ],
 
   employers: {
-    eyebrow: 'For employers',
     title: 'For employers',
-    subtitle: 'Résumé, test assignments and contacts.',
-    intro:
+    subtitle:
       'What people usually ask for at the first stage: a résumé, completed test assignments ' +
       'with source code, and contacts.',
     highlights: [
@@ -426,8 +512,6 @@ export const contentEn: Content = {
       },
     ],
     cta: {
-      resume: 'View resume',
-      tasks: 'Test assignments',
       contact: 'Get in touch',
     },
   },
